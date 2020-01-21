@@ -9,8 +9,6 @@ const app: Application = express();
 
 app.use(express.static(path.resolve(__dirname)));
 
-console.log('this is the path', path.resolve(__dirname));
-
 app.get('/*', (req: Request, res: Response) => {
   const tsx = (<App />);
   const reactDom: string = renderToString(tsx);
@@ -42,8 +40,6 @@ function htmlTemplate(reactDom: string, helmetData: HelmetData): string {
         </html>
     `;
 }
-// ???
-{/* <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script> */}
 // place after title
 {/* <link rel="stylesheet" type="text/css" href="./styles.css" /> */ }
 //
@@ -51,6 +47,7 @@ function htmlTemplate(reactDom: string, helmetData: HelmetData): string {
 {/* <div id="appdiv">${ reactDom}</div> */ }
 //
 // place after div id="appdiv"
+{/* <script src="main.js"></script> */}
 {/* <script>
 window.REDUX_DATA = ${ serialize( reduxState, { isJSON: true } ) }
 </script> */}

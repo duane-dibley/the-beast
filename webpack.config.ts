@@ -2,11 +2,11 @@ import path from 'path';
 import { Configuration } from 'webpack';
 import nodeExternals from 'webpack-node-externals';
 
-const jsRule = {
-  exclude: /node_modules/,
-  loader: 'babel-loader',
-  test: /\.js$/,
-};
+// const jsRule = {
+//   exclude: /node_modules/,
+//   loader: 'babel-loader',
+//   test: /\.js$/,
+// };
 
 const tsRule = {
   exclude: /node_modules/,
@@ -20,7 +20,7 @@ const clientConfig: Configuration = {
     rules: [tsRule]
   },
   resolve: {
-    extensions: ['.js', '.jsx', '.tsx']
+    extensions: ['.js', '.tsx']
   }
 };
 
@@ -28,7 +28,7 @@ const serverConfig: Configuration = {
   entry: './server/index.tsx',
   externals: [nodeExternals()],
   module: {
-    rules: [jsRule, tsRule]
+    rules: [tsRule]
   },
   node: {
     __dirname: false,
@@ -39,7 +39,7 @@ const serverConfig: Configuration = {
     path: path.resolve(__dirname, 'dist')
   },
   resolve: {
-    extensions: ['.js', '.jsx', '.tsx']
+    extensions: ['.js', '.tsx']
   },
   target: 'node'
 };

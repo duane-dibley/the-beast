@@ -1,19 +1,41 @@
+import path from 'path';
 import { Configuration } from 'webpack';
+import nodeExternals from 'webpack-node-externals';
 
-const config: Configuration = {
+const tsRule = {
+  exclude: /node_modules/,
+  loader: 'ts-loader',
+  test: /\.tsx?$/
+};
+
+const clientConfig: Configuration = {
   // devtool: 'inline-source-map',
   module: {
-    rules: [
-      {
-        exclude: /node_modules/,
-        loader: 'ts-loader',
-        test: /\.tsx?$/
-      }
-    ]
+    rules: [tsRule]
   },
   resolve: {
-    extensions: ['.ts']
+    extensions: ['.js', '.tsx']
   }
 };
 
-export default config;
+const serverConfig: Configuration = {
+  entry: './server/index.tsx',
+  externals: [nodeExternals()],
+  module: {
+    rules: [tsRule]
+  },
+  node: {
+    __dirname: false,
+    __filename: false,
+  },
+  output: {
+    filename: 'server.js',
+    path: path.resolve(__dirname, 'dist')
+  },
+  resolve: {
+    extensions: ['.js', '.tsx']
+  },
+  target: 'node'
+};
+
+export default [clientConfig, serverConfig];

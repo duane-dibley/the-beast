@@ -4,16 +4,18 @@
     "esModuleInterop": true,
     "jsx": "react",
     "module": "commonjs",
+    "moduleResolution": "node",
     "noImplicitAny": true,
     "outDir": "./dist/",
-    // "sourceMap": true,
+    "sourceMap": true,
     "target": "es6",
   },
-  // "exclude": [
-  //   "node_modules",
-  //   "dist"
-  // ],
-  // "include": [
-  //   "src/**/*"
-  // ]
+  "exclude": [
+    "node_modules",
+    "dist"
+  ],
+  "include": [
+    "server/**/*",
+    "src/**/*"
+  ]
 }

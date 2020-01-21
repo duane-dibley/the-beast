@@ -2,6 +2,12 @@ import path from 'path';
 import { Configuration } from 'webpack';
 import nodeExternals from 'webpack-node-externals';
 
+const jsRule = {
+  exclude: /node_modules/,
+  loader: 'babel-loader',
+  test: /\.js$/,
+};
+
 const tsRule = {
   exclude: /node_modules/,
   loader: 'ts-loader',
@@ -9,12 +15,12 @@ const tsRule = {
 };
 
 const clientConfig: Configuration = {
-  // devtool: 'inline-source-map',
+  devtool: 'inline-source-map',
   module: {
     rules: [tsRule]
   },
   resolve: {
-    extensions: ['.js', '.tsx']
+    extensions: ['.js', '.jsx', '.tsx']
   }
 };
 
@@ -22,7 +28,7 @@ const serverConfig: Configuration = {
   entry: './server/index.tsx',
   externals: [nodeExternals()],
   module: {
-    rules: [tsRule]
+    rules: [jsRule, tsRule]
   },
   node: {
     __dirname: false,
@@ -33,7 +39,7 @@ const serverConfig: Configuration = {
     path: path.resolve(__dirname, 'dist')
   },
   resolve: {
-    extensions: ['.js', '.tsx']
+    extensions: ['.js', '.jsx', '.tsx']
   },
   target: 'node'
 };

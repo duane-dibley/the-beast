@@ -1,5 +1,13 @@
-import { Action, Reducer, Store } from 'redux';
+import { Action, Reducer } from 'redux';
 
-const reducer: Reducer<Store, Action> = (state: Store, action: Action): Store => state;
+interface initDataState {
+    initData: string;
+}
+
+const initState: initDataState = {
+    initData: ''
+};
+
+const reducer: Reducer<initDataState, Action> = (state: initDataState = initState, action: Action): initDataState => state;
 
 export default reducer;

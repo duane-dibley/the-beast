@@ -5,6 +5,7 @@ import { renderToString } from 'react-dom/server';
 import Helmet, { HelmetData } from 'react-helmet';
 import { Provider } from 'react-redux';
 import { createStore, Store } from 'redux';
+import serialize from "serialize-javascript";
 import App from '../src/app';
 import initData from './InitDataReducer';
 
@@ -26,27 +27,30 @@ app.get('/*', (req: Request, res: Response) => {
   const reactDom: string = renderToString(tsx);
 
   res.writeHead(200, { 'Content-Type': 'text/html' });
-  res.end(htmlTemplate(helmetData, reactDom));
+  res.end(htmlTemplate(helmetData, reactDom, reduxState));
 });
 
 app.listen(5000, () => console.log('server running on port 5000'));
 
-function htmlTemplate(helmetData: HelmetData, reactDom: string /*, reduxState: HelmetData */): string {
+function htmlTemplate(helmetData: HelmetData, reactDom: string, reduxState: any): string {
   return `
         <!DOCTYPE html>
         <html>
 
-        <head>
-          <meta charset="utf-8">
-          ${ helmetData.title.toString()}
-          ${ helmetData.meta.toString()}
-          <title>React SSR</title>
-        </head>
+          <head>
+            <meta charset="utf-8">
+            ${helmetData.title.toString()}
+            ${helmetData.meta.toString()}
+            <title>React SSR</title>
+          </head>
 
-        <body>
-          <div id="appdiv">${reactDom}</div>
-          <script src="main.js"></script>
-        </body>
+          <body>
+            <div id="appdiv">${reactDom}</div>
+            <script>
+              window.REDUX_DATA = ${serialize(reduxState, { isJSON: true })}
+            </script>
+            <script src="main.js"></script>
+          </body>
 
         </html>
     `;
@@ -54,7 +58,3 @@ function htmlTemplate(helmetData: HelmetData, reactDom: string /*, reduxState: H
 // place after title
 {/* <link rel="stylesheet" type="text/css" href="./styles.css" /> */ }
 //
-// place after div id="appdiv"
-{/* <script>
-window.REDUX_DATA = ${ serialize( reduxState, { isJSON: true } ) }
-</script> */}

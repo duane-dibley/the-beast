@@ -1,26 +1,37 @@
 import express, { Application, Request, Response } from 'express';
 import path from 'path';
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { renderToString } from 'react-dom/server';
 import Helmet, { HelmetData } from 'react-helmet';
+import { Provider } from 'react-redux';
+import { createStore, Store } from 'redux';
 import App from '../src/app';
+import initData from './InitDataReducer';
 
 const app: Application = express();
 
 app.use(express.static(path.resolve(__dirname)));
 
 app.get('/*', (req: Request, res: Response) => {
-  const tsx = (<App />);
-  const reactDom: string = renderToString(tsx);
   const helmetData: HelmetData = Helmet.renderStatic();
+  const reduxStore: Store = createStore(initData);
+  const reduxState: any = reduxStore.getState();
+
+  const tsx: ReactElement = (
+    <Provider store={reduxStore}>
+      <App />
+    </Provider>
+  );
+
+  const reactDom: string = renderToString(tsx);
 
   res.writeHead(200, { 'Content-Type': 'text/html' });
-  res.end(htmlTemplate(reactDom, helmetData));
+  res.end(htmlTemplate(helmetData, reactDom));
 });
 
 app.listen(5000, () => console.log('server running on port 5000'));
 
-function htmlTemplate(reactDom: string, helmetData: HelmetData): string {
+function htmlTemplate(helmetData: HelmetData, reactDom: string /*, reduxState: HelmetData */): string {
   return `
         <!DOCTYPE html>
         <html>
@@ -33,7 +44,7 @@ function htmlTemplate(reactDom: string, helmetData: HelmetData): string {
         </head>
 
         <body>
-          <div id="appdiv"></div>
+          <div id="appdiv">${reactDom}</div>
           <script src="main.js"></script>
         </body>
 
@@ -43,11 +54,7 @@ function htmlTemplate(reactDom: string, helmetData: HelmetData): string {
 // place after title
 {/* <link rel="stylesheet" type="text/css" href="./styles.css" /> */ }
 //
-// place inside appdiv tags
-{/* <div id="appdiv">${ reactDom}</div> */ }
-//
 // place after div id="appdiv"
-{/* <script src="main.js"></script> */}
 {/* <script>
 window.REDUX_DATA = ${ serialize( reduxState, { isJSON: true } ) }
 </script> */}

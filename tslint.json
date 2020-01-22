@@ -14,8 +14,16 @@
     "trailing-comma": false,
     "typedef": [
       true,
+      "array-destructuring",
+      "arrow-call-signature",
+      "arrow-parameter",
       "call-signature",
-      "property-declaration"
+      "member-variable-declaration",
+      "object-destructuring",
+      "parameter",
+      "property-declaration",
+      "variable-declaration",
+      "variable-declaration-ignore-function"
     ]
   },
   "rulesDirectory": []

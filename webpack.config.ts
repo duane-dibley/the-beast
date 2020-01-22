@@ -2,12 +2,6 @@ import path from 'path';
 import { Configuration } from 'webpack';
 import nodeExternals from 'webpack-node-externals';
 
-// const jsRule = {
-//   exclude: /node_modules/,
-//   loader: 'babel-loader',
-//   test: /\.js$/,
-// };
-
 const tsRule = {
   exclude: /node_modules/,
   loader: 'ts-loader',
@@ -39,7 +33,7 @@ const serverConfig: Configuration = {
     path: path.resolve(__dirname, 'dist')
   },
   resolve: {
-    extensions: ['.js', '.tsx']
+    extensions: ['.js', '.ts', '.tsx']
   },
   target: 'node'
 };

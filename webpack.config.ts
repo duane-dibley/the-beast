@@ -14,7 +14,7 @@ const clientConfig: Configuration = {
     rules: [tsRule]
   },
   resolve: {
-    extensions: ['.js', '.tsx']
+    extensions: ['.js', '.ts', '.tsx']
   }
 };
 

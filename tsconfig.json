@@ -14,7 +14,7 @@
     "dist"
   ],
   "files": [
-    "types.ts"
+    "typings.ts"
   ],
   "include": [
     "server/**/*",

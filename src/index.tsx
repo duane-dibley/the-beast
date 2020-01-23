@@ -1,16 +1,21 @@
+/* eslint-env browser */
 import React from 'react';
 import { hydrate } from 'react-dom';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
 import App from './app';
-
-declare global {
-    interface Window {
-        REDUX_DATA: any;
-    }
-}
+import appReducer from './reducers/AppReducer';
 
 const appdiv: Element = document.getElementById('appdiv');
-const data: any = window.REDUX_DATA
 
-console.log('window data', data);
+const initData = window.INIT_DATA;
+delete window.INIT_DATA;
 
-hydrate(<App />, appdiv);
+const store = createStore(appReducer, initData);
+
+hydrate(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  appdiv
+);

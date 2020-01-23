@@ -5,9 +5,9 @@ import { renderToString } from 'react-dom/server';
 import Helmet, { HelmetData } from 'react-helmet';
 import { Provider } from 'react-redux';
 import { createStore, Store } from 'redux';
-import serialize from "serialize-javascript";
+import serialize from 'serialize-javascript';
 import App from '../src/app';
-import initData from './InitDataReducer';
+import InitDataReducer from './reducers/InitDataReducer';
 
 const app: Application = express();
 
@@ -15,8 +15,8 @@ app.use(express.static(path.resolve(__dirname)));
 
 app.get('/*', (req: Request, res: Response) => {
   const helmetData: HelmetData = Helmet.renderStatic();
-  const reduxStore: Store = createStore(initData);
-  const reduxState: any = reduxStore.getState();
+  const reduxStore: Store<IInitDataState> = createStore(InitDataReducer);
+  const reduxState: IInitDataState = reduxStore.getState();
 
   const tsx: ReactElement = (
     <Provider store={reduxStore}>
@@ -30,9 +30,10 @@ app.get('/*', (req: Request, res: Response) => {
   res.end(htmlTemplate(helmetData, reactDom, reduxState));
 });
 
+// eslint-disable-next-line
 app.listen(5000, () => console.log('server running on port 5000'));
 
-function htmlTemplate(helmetData: HelmetData, reactDom: string, reduxState: any): string {
+function htmlTemplate(helmetData: HelmetData, reactDom: string, initData: IInitDataState): string {
   return `
         <!DOCTYPE html>
         <html>
@@ -47,7 +48,7 @@ function htmlTemplate(helmetData: HelmetData, reactDom: string, reduxState: any)
           <body>
             <div id="appdiv">${reactDom}</div>
             <script>
-              window.REDUX_DATA = ${serialize(reduxState, { isJSON: true })}
+              window.INIT_DATA = ${serialize(initData, { isJSON: true })}
             </script>
             <script src="main.js"></script>
           </body>
@@ -55,6 +56,23 @@ function htmlTemplate(helmetData: HelmetData, reactDom: string, reduxState: any)
         </html>
     `;
 }
-// place after title
-{/* <link rel="stylesheet" type="text/css" href="./styles.css" /> */ }
+
 //
+{/* <body>
+  <div id="appdiv">${reactDom}</div>
+  <script>
+    window.INIT_DATA = ${serialize(initData, { isJSON: true })}
+  </script>
+  <script src="main.js"></script>
+  </body> */}
+
+//
+{/* <body>
+<div id="appdiv">${reactDom}</div>
+<script>
+  // WARNING: See the following for security issues around embedding JSON in HTML:
+  // https://redux.js.org/recipes/server-rendering/#security-considerations
+  window.INIT_DATA = ${JSON.stringify(initData).replace(/</g, '\\u003c')}
+</script>
+<script src="main.js"></script>
+</body> */}

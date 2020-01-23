@@ -56,23 +56,3 @@ function htmlTemplate(helmetData: HelmetData, reactDom: string, initData: IInitD
         </html>
     `;
 }
-
-//
-{/* <body>
-  <div id="appdiv">${reactDom}</div>
-  <script>
-    window.INIT_DATA = ${serialize(initData, { isJSON: true })}
-  </script>
-  <script src="main.js"></script>
-  </body> */}
-
-//
-{/* <body>
-<div id="appdiv">${reactDom}</div>
-<script>
-  // WARNING: See the following for security issues around embedding JSON in HTML:
-  // https://redux.js.org/recipes/server-rendering/#security-considerations
-  window.INIT_DATA = ${JSON.stringify(initData).replace(/</g, '\\u003c')}
-</script>
-<script src="main.js"></script>
-</body> */}

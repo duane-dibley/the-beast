@@ -1,7 +1,7 @@
 import { Action, Reducer } from 'redux';
 
 const initState: IAppState = {
-  data: ''
+  data: 'Initial data App'
 };
 
 const reducer: Reducer<IAppState, Action> = (state: IAppState = initState, action: Action) => {

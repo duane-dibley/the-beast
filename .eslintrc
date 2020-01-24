@@ -8,6 +8,7 @@
     "import/extensions": 0,
     "import/no-extraneous-dependencies": [1, { "devDependencies": true  }],
     "import/no-unresolved": 0,
+    "import/prefer-default-export": 0,
     "linebreak-style": 0,
     "max-len": 0,
     "no-lone-blocks": 1,
@@ -15,6 +16,15 @@
     "padded-blocks": 0,
     "react/jsx-filename-extension": [1, { "extensions": [".tsx"] }],
     "react/prefer-stateless-function": [1],
+    //
+    "@typescript-eslint/typedef": [
+      1,
+      {
+        "arrayDestructuring": true,
+        "objectDestructuring": true,
+        "variableDeclaration": true
+      }
+    ],
     // ESlint/Typescript conflicts to be resolved in later release
     "no-unused-vars": "off",
     "@typescript-eslint/no-unused-vars": 1,

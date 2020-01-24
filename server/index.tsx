@@ -6,7 +6,7 @@ import Helmet, { HelmetData } from 'react-helmet';
 import { Provider } from 'react-redux';
 import { createStore, Store } from 'redux';
 import serialize from 'serialize-javascript';
-import App from '../src/app';
+import App from '../src/app/app';
 import InitDataReducer from './reducers/InitDataReducer';
 
 const app: Application = express();

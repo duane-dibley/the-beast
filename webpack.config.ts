@@ -1,8 +1,8 @@
 import path from 'path';
-import { Configuration } from 'webpack';
+import { Configuration, RuleSetRule } from 'webpack';
 import nodeExternals from 'webpack-node-externals';
 
-const tsRule = {
+const tsRule: RuleSetRule = {
   exclude: /node_modules/,
   loader: 'ts-loader',
   test: /\.tsx?$/
@@ -10,6 +10,7 @@ const tsRule = {
 
 const clientConfig: Configuration = {
   devtool: 'inline-source-map',
+  entry: './src/app/index.tsx',
   module: {
     rules: [tsRule]
   },

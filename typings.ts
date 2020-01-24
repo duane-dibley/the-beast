@@ -7,5 +7,6 @@ interface IInitDataState {
 }
 
 interface Window {
-  INIT_DATA: { data: string };
+  // INIT_DATA: { data: string };
+  INIT_DATA: IInitDataState;
 }

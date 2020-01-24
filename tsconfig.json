@@ -1,11 +1,15 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
     "esModuleInterop": true,
     "jsx": "react",
     "module": "commonjs",
     "moduleResolution": "node",
     "noImplicitAny": true,
-    "outDir": "./dist/",
+    "outDir": "dist",
+    "paths": {
+      "@store": ["src/store"]
+    },
     "sourceMap": true,
     "target": "es6",
   },

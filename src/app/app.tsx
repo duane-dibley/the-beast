@@ -20,13 +20,9 @@ interface IConnectDispatch {
   setData: typeof setData;
 }
 
-interface IConnectState {
-  app: IAppState;
-}
-
 interface IProps {
   actions?: IConnectDispatch;
-  store?: IConnectState;
+  store?: IStore;
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

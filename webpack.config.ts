@@ -8,27 +8,30 @@ const tsRule: RuleSetRule = {
   test: /\.tsx?$/
 };
 
-const clientConfig: Configuration = {
-  devtool: 'inline-source-map',
-  entry: './src/app/index.tsx',
+const common: Configuration = {
   module: {
     rules: [tsRule]
   },
+  resolve: {
+    alias: {
+      '@store': path.resolve(__dirname, 'src/store')
+    },
+    extensions: ['.js', '.ts', '.tsx']
+  }
+};
+
+const clientConfig: Configuration = {
+  devtool: 'inline-source-map',
+  entry: './src/app/index.tsx',
   output: {
     filename: 'app.bundle.js',
     path: path.resolve(__dirname, 'dist')
-  },
-  resolve: {
-    extensions: ['.js', '.ts', '.tsx']
   }
 };
 
 const serverConfig: Configuration = {
   entry: './src/server/index.tsx',
   externals: [nodeExternals()],
-  module: {
-    rules: [tsRule]
-  },
   node: {
     __dirname: false,
     __filename: false,
@@ -37,10 +40,10 @@ const serverConfig: Configuration = {
     filename: 'server.js',
     path: path.resolve(__dirname, 'dist')
   },
-  resolve: {
-    extensions: ['.js', '.ts', '.tsx']
-  },
   target: 'node'
 };
 
-export default [clientConfig, serverConfig];
+export default [
+  { ...common, ...clientConfig },
+  { ...common, ...serverConfig }
+];

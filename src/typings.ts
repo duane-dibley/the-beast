@@ -8,8 +8,8 @@ interface IInitDataState {
 }
 
 interface IStore {
-  app: IAppState;
-  initData: IInitDataState;
+  app?: IAppState;
+  initData?: IInitDataState;
 }
 
 // MISC ////////////////////

@@ -3,8 +3,8 @@ import { Store, createStore } from 'redux';
 import { Provider } from 'react-redux';
 import React from 'react';
 import { hydrate } from 'react-dom';
+import reducer from '@store';
 import App from './app';
-import reducer from '../store';
 
 const appdiv: Element = document.getElementById('appdiv');
 

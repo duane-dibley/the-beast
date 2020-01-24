@@ -6,8 +6,8 @@ import Helmet, { HelmetData } from 'react-helmet';
 import { Provider } from 'react-redux';
 import { createStore, Store, AnyAction } from 'redux';
 import serialize from 'serialize-javascript';
+import reducer from '@store';
 import App from '../app/app';
-import reducer from '../store';
 
 const app: Application = express();
 
@@ -18,7 +18,8 @@ app.get('/*', (req: Request, res: Response) => {
 
   const reduxStore: Store<IStore, AnyAction> = createStore(reducer);
 
-  reduxStore.dispatch({ type: 'SET_MESSAGE', payload: 'Testing message sent from server' });
+  // action dispatch
+  // reduxStore.dispatch({ type: 'SET_MESSAGE', payload: 'Test message' });
 
   const reduxState: IStore = reduxStore.getState();
 

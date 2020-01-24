@@ -13,11 +13,7 @@
     "node_modules",
     "dist"
   ],
-  "files": [
-    "typings.ts"
-  ],
   "include": [
-    "server/**/*",
     "src/**/*"
   ]
 }

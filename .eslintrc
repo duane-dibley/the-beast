@@ -1,7 +1,11 @@
 {
   "parser": "@typescript-eslint/parser",
   "plugins": ["@typescript-eslint"],
-  "extends": ["airbnb"],
+  "extends": [
+    "airbnb",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:import/typescript"
+  ],
   "rules": {
     "block-spacing": 1,
     "comma-dangle": 0,
@@ -12,16 +16,19 @@
     "linebreak-style": 0,
     "max-len": 0,
     "no-lone-blocks": 1,
-    "no-use-before-define": 0,
+    // "no-use-before-define": 0,
     "padded-blocks": 0,
     "react/jsx-filename-extension": [1, { "extensions": [".tsx"] }],
-    "react/prefer-stateless-function": [1],
+    "react/prefer-stateless-function": 1,
+    // "sort-imports": 1,
     //
+    "@typescript-eslint/interface-name-prefix": 0,
+    "@typescript-eslint/no-use-before-define": 0,
     "@typescript-eslint/typedef": [
       1,
       {
-        "arrayDestructuring": true,
-        "objectDestructuring": true,
+        // "arrayDestructuring": true,
+        // "objectDestructuring": true,
         "variableDeclaration": true
       }
     ],

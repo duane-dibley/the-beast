@@ -4,10 +4,10 @@ import React, { ReactElement } from 'react';
 import { renderToString } from 'react-dom/server';
 import Helmet, { HelmetData } from 'react-helmet';
 import { Provider } from 'react-redux';
-import { createStore, Store } from 'redux';
+import { createStore, Store, AnyAction } from 'redux';
 import serialize from 'serialize-javascript';
-import App from '../src/app/app';
-import InitDataReducer from './reducers/InitDataReducer';
+import App from '../app/app';
+import reducer from '../store';
 
 const app: Application = express();
 
@@ -15,8 +15,12 @@ app.use(express.static(path.resolve(__dirname)));
 
 app.get('/*', (req: Request, res: Response) => {
   const helmetData: HelmetData = Helmet.renderStatic();
-  const reduxStore: Store<IInitDataState> = createStore(InitDataReducer);
-  const reduxState: IInitDataState = reduxStore.getState();
+
+  const reduxStore: Store<IStore, AnyAction> = createStore(reducer);
+
+  reduxStore.dispatch({ type: 'SET_MESSAGE', payload: 'Testing message sent from server' });
+
+  const reduxState: IStore = reduxStore.getState();
 
   const tsx: ReactElement = (
     <Provider store={reduxStore}>
@@ -33,7 +37,7 @@ app.get('/*', (req: Request, res: Response) => {
 // eslint-disable-next-line
 app.listen(5000, () => console.log('server running on port 5000'));
 
-function htmlTemplate(helmetData: HelmetData, reactDom: string, initData: IInitDataState): string {
+function htmlTemplate(helmetData: HelmetData, reactDom: string, initData: IStore): string {
   return `
         <!DOCTYPE html>
         <html>
@@ -50,7 +54,7 @@ function htmlTemplate(helmetData: HelmetData, reactDom: string, initData: IInitD
             <script>
               window.INIT_DATA = ${serialize(initData, { isJSON: true })}
             </script>
-            <script src="main.js"></script>
+            <script src="app.bundle.js"></script>
           </body>
 
         </html>

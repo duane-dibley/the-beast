@@ -1,27 +1,32 @@
+import { AnyAction, Dispatch, bindActionCreators } from 'redux';
 import React from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators, Dispatch } from 'redux';
-import { setData } from './actions';
+import { setData } from './action-creators';
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+function App(props: IProps): JSX.Element {
+  const { actions } = props;
+  return <button type="button" onClick={(): AnyAction => actions.setData()}>Click</button>;
+}
 
-function mapDispatchToProps(dispatch: Dispatch) {
+function mapDispatchToProps(dispatch: Dispatch): IProps {
   return { actions: bindActionCreators({ setData }, dispatch) };
 }
 
-function mapStateToProps(state: any) {
-  console.log('mapStateToProps ', state);
-  return state;
+function mapStateToProps(store: IStore): IProps {
+  return { store: { app: store.app } };
 }
 
-// functional JSX Element
-function App(): JSX.Element {
-  return <div>appdiv content</div>;
+interface IConnectDispatch {
+  setData: typeof setData;
 }
 
-// Class components where state is applied
-// class App extends Component<{}> {
-//   public render(): ReactNode {
-//     return <div>App div</div>;
-//   }
-// }
+interface IConnectState {
+  app: IAppState;
+}
+
+interface IProps {
+  actions?: IConnectDispatch;
+  store?: IConnectState;
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

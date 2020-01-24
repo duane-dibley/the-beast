@@ -14,13 +14,17 @@ const clientConfig: Configuration = {
   module: {
     rules: [tsRule]
   },
+  output: {
+    filename: 'app.bundle.js',
+    path: path.resolve(__dirname, 'dist')
+  },
   resolve: {
     extensions: ['.js', '.ts', '.tsx']
   }
 };
 
 const serverConfig: Configuration = {
-  entry: './server/index.tsx',
+  entry: './src/server/index.tsx',
   externals: [nodeExternals()],
   module: {
     rules: [tsRule]

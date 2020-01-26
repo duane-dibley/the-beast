@@ -48,6 +48,7 @@ function htmlTemplate(helmetData: HelmetData, reactDom: string, initData: IStore
             ${helmetData.title.toString()}
             ${helmetData.meta.toString()}
             <title>React SSR</title>
+            <link rel="stylesheet" type="text/css" href="app.bundle.css">
           </head>
 
           <body>

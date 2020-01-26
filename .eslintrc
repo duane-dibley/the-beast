@@ -17,12 +17,15 @@
     "max-len": 0,
     "no-lone-blocks": 1,
     // "no-use-before-define": 0,
+    "object-curly-newline": 0,
     "padded-blocks": 0,
     "react/jsx-filename-extension": [1, { "extensions": [".tsx"] }],
+    "react/jsx-first-prop-new-line": 0,
     "react/prefer-stateless-function": 1,
     // "sort-imports": 1,
     //
     "@typescript-eslint/interface-name-prefix": 0,
+    "@typescript-eslint/no-empty-interface": 1,
     "@typescript-eslint/no-use-before-define": 0,
     "@typescript-eslint/typedef": [
       1,

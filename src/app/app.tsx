@@ -1,11 +1,11 @@
-import { AnyAction, Dispatch, bindActionCreators } from 'redux';
+import { Dispatch, bindActionCreators } from 'redux';
 import React from 'react';
 import { connect } from 'react-redux';
 import { setData } from './action-creators';
+import GridComponent from './components/GridComponent';
 
-function App(props: IProps): JSX.Element {
-  const { actions } = props;
-  return <button type="button" onClick={(): AnyAction => actions.setData()}>Click</button>;
+function App(/* props: IProps */): JSX.Element {
+  return <GridComponent />;
 }
 
 function mapDispatchToProps(dispatch: Dispatch): IProps {

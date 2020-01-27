@@ -16,3 +16,6 @@ interface IStore {
 interface Window {
   INIT_DATA: IStore;
 }
+
+// declare module '*.css';
+// declare module '*.styl'

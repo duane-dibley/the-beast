@@ -17,6 +17,9 @@
     "node_modules",
     "dist"
   ],
+  // "files": [
+  //   "postcss.config.js"
+  // ],
   "include": [
     "src/**/*"
   ]

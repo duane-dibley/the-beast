@@ -9,6 +9,8 @@
   "rules": {
     "block-spacing": 1,
     "comma-dangle": 0,
+    // set for postcss - shouldn't be using
+    "global-require": 0,
     "import/extensions": 0,
     "import/no-extraneous-dependencies": [1, { "devDependencies": true  }],
     "import/no-unresolved": 0,
@@ -16,7 +18,7 @@
     "linebreak-style": 0,
     "max-len": 0,
     "no-lone-blocks": 1,
-    // "no-use-before-define": 0,
+    "no-use-before-define": 0,
     "object-curly-newline": 0,
     "padded-blocks": 0,
     "react/jsx-filename-extension": [1, { "extensions": [".tsx"] }],

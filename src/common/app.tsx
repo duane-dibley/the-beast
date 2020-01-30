@@ -1,8 +1,10 @@
-import { Dispatch, bindActionCreators } from 'redux';
+import { AnyAction, Dispatch, bindActionCreators } from 'redux';
 import React from 'react';
 import { connect } from 'react-redux';
-import { setData } from './action-creators';
-import GridComponent from './components/GridComponent';
+import GridComponent from './components/grid-component/GridComponent';
+
+import '../../node_modules/react-grid-layout/css/styles.css';
+import '../../node_modules/react-resizable/css/styles.css';
 
 function App(/* props: IProps */): JSX.Element {
   return <GridComponent />;
@@ -26,3 +28,8 @@ interface IProps {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
+
+// ACTION CREATORS
+function setData(): AnyAction {
+  return { type: 'SET_DATA' };
+}

@@ -8,3 +8,7 @@ dist
 *.md
 *.log
 *.lock
+*.css
+*.scss
+*.styl
+*.d.ts

@@ -7,7 +7,7 @@ import { Provider } from 'react-redux';
 import { createStore, Store, AnyAction } from 'redux';
 import serialize from 'serialize-javascript';
 import reducer from '@store';
-import App from '../app/app';
+import App from '../common/app';
 
 const app: Application = express();
 
@@ -48,7 +48,6 @@ function htmlTemplate(helmetData: HelmetData, reactDom: string, initData: IStore
             ${helmetData.title.toString()}
             ${helmetData.meta.toString()}
             <title>React SSR</title>
-            <link rel="stylesheet" type="text/css" href="server.bundle.css">
           </head>
 
           <body>

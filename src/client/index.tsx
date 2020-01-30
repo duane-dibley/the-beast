@@ -1,4 +1,5 @@
 /* eslint-env browser */
+import StyleContext from 'isomorphic-style-loader/StyleContext';
 import { Store, createStore } from 'redux';
 import { Provider } from 'react-redux';
 import React from 'react';
@@ -13,9 +14,16 @@ delete window.INIT_DATA;
 
 const store: Store = createStore(reducer, initData);
 
-render(
+const insertCss: VoidFunction = (...styles: any[]) => {
+  const removeCss: any = styles.map((style: any) => style._insertCss());
+  return (): void => removeCss.forEach((dispose: any) => dispose());
+};
+
+hydrate(
   <Provider store={store}>
-    <App />
+    <StyleContext.Provider value={{ insertCss }}>
+      <App />
+    </StyleContext.Provider>
   </Provider>,
   appdiv
 );

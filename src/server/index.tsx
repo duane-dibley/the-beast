@@ -1,4 +1,5 @@
 import express, { Application, Request, Response } from 'express';
+import StyleContext from 'isomorphic-style-loader/StyleContext';
 import path from 'path';
 import React, { ReactElement } from 'react';
 import { renderToString } from 'react-dom/server';
@@ -14,8 +15,10 @@ const app: Application = express();
 app.use(express.static(path.resolve(__dirname)));
 
 app.get('/*', (req: Request, res: Response) => {
-  const helmetData: HelmetData = Helmet.renderStatic();
+  const css: Set<any> = new Set(); // CSS for all rendered React components
+  const insertCss: VoidFunction = (...styles: any[]): void => styles.forEach((style: any) => css.add(style._getCss()));
 
+  const helmetData: HelmetData = Helmet.renderStatic();
   const reduxStore: Store<IStore, AnyAction> = createStore(reducer);
 
   // action dispatch
@@ -25,20 +28,22 @@ app.get('/*', (req: Request, res: Response) => {
 
   const tsx: ReactElement = (
     <Provider store={reduxStore}>
-      <App />
+      <StyleContext.Provider value={{ insertCss }}>
+        <App />
+      </StyleContext.Provider>
     </Provider>
   );
 
   const reactDom: string = renderToString(tsx);
 
   res.writeHead(200, { 'Content-Type': 'text/html' });
-  res.end(htmlTemplate(helmetData, reactDom, reduxState));
+  res.end(htmlTemplate(helmetData, reactDom, reduxState, css));
 });
 
 // eslint-disable-next-line
 app.listen(5000, () => console.log('server running on port 5000'));
 
-function htmlTemplate(helmetData: HelmetData, reactDom: string, initData: IStore): string {
+function htmlTemplate(helmetData: HelmetData, reactDom: string, initData: IStore, css: Set<any>): string {
   return `
         <!DOCTYPE html>
         <html>
@@ -48,6 +53,7 @@ function htmlTemplate(helmetData: HelmetData, reactDom: string, initData: IStore
             ${helmetData.title.toString()}
             ${helmetData.meta.toString()}
             <title>React SSR</title>
+            <style>${[...css].join('')}</style>
           </head>
 
           <body>
@@ -55,7 +61,7 @@ function htmlTemplate(helmetData: HelmetData, reactDom: string, initData: IStore
             <script>
               window.INIT_DATA = ${serialize(initData, { isJSON: true })}
             </script>
-            <script src="app.bundle.js"></script>
+            <script src="public/client.bundle.js"></script>
           </body>
 
         </html>

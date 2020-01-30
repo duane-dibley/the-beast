@@ -2,6 +2,7 @@ import { Layouts, Responsive, ResponsiveProps, WidthProvider, WidthProviderProps
 import { Dispatch, bindActionCreators } from 'redux';
 import React, { ComponentClass } from 'react';
 import { connect } from 'react-redux';
+import withStyles from 'isomorphic-style-loader/withStyles';
 import Styles from './grid.scss';
 
 const ResponsiveGridLayout: ComponentClass<ResponsiveProps, WidthProviderProps> = WidthProvider(Responsive);
@@ -44,4 +45,4 @@ interface IProps {
   store?: {};
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(GridComponent);
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(Styles)(GridComponent));

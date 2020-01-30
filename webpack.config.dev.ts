@@ -7,14 +7,13 @@ const config: Configuration = {
     rules: [
       {
         use: [
-          // 'isomorphic-style-loader',
-          'style-loader',
-          '@teamsupercell/typings-for-css-modules-loader',
+          // 'style-loader',
+          'isomorphic-style-loader',
           {
             loader: 'css-loader',
-            options: { modules: true }
-          }
-          // 'postcss-loader'
+            options: { modules: false }
+          },
+          'postcss-loader',
         ],
         test: /\.css$/
       },
@@ -26,27 +25,35 @@ const config: Configuration = {
       {
         test: /\.scss$/,
         use: [
+          // 'style-loader',
           'isomorphic-style-loader',
           '@teamsupercell/typings-for-css-modules-loader',
           {
             loader: 'css-loader',
-            options: { modules: true }
+            options: { modules: true, sourceMap: true }
           },
           'postcss-loader',
-          'sass-loader'
+          {
+            loader: 'sass-loader',
+            options: { sourceMap: true }
+          }
         ]
       },
       {
         test: /\.styl$/,
         use: [
+          // 'style-loader',
           'isomorphic-style-loader',
           '@teamsupercell/typings-for-css-modules-loader',
           {
             loader: 'css-loader',
-            options: { modules: true }
+            options: { modules: true, sourceMap: true }
           },
           'postcss-loader',
-          'stylus-loader'
+          {
+            loader: 'stylus-loader',
+            options: { sourceMap: true }
+          }
         ]
       }
     ]
@@ -91,6 +98,6 @@ const server: Configuration = {
 };
 
 export default [
-  { ...config, ...client },
-  // { ...config, ...server }
+  { ...config, ...server },
+  { ...config, ...client }
 ];

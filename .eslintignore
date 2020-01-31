@@ -12,3 +12,4 @@ dist
 *.scss
 *.styl
 *.d.ts
+*.html

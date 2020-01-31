@@ -7,12 +7,8 @@ const config: Configuration = {
     rules: [
       {
         use: [
-          // 'style-loader',
           'isomorphic-style-loader',
-          {
-            loader: 'css-loader',
-            options: { modules: false }
-          },
+          'css-loader',
           'postcss-loader',
         ],
         test: /\.css$/
@@ -25,7 +21,6 @@ const config: Configuration = {
       {
         test: /\.scss$/,
         use: [
-          // 'style-loader',
           'isomorphic-style-loader',
           '@teamsupercell/typings-for-css-modules-loader',
           {
@@ -42,7 +37,6 @@ const config: Configuration = {
       {
         test: /\.styl$/,
         use: [
-          // 'style-loader',
           'isomorphic-style-loader',
           '@teamsupercell/typings-for-css-modules-loader',
           {
@@ -60,10 +54,11 @@ const config: Configuration = {
   },
   resolve: {
     alias: {
+      '@components': path.resolve(__dirname, 'src/common/components'),
       '@store': path.resolve(__dirname, 'src/store')
     },
     extensions: ['.css', '.js', '.scss', '.styl', '.ts', '.tsx']
-  },
+  }
 };
 
 const client: Configuration = {
@@ -72,10 +67,10 @@ const client: Configuration = {
     client: path.resolve(__dirname, 'src/client/index.tsx')
   },
   output: {
-    chunkFilename: '[id].js',
+    chunkFilename: '[id].chunk.js',
     filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist/public'),
-    sourceMapFilename: '[name].map',
+    sourceMapFilename: '[name].map.js',
   }
 };
 
@@ -89,10 +84,10 @@ const server: Configuration = {
     __filename: false,
   },
   output: {
-    chunkFilename: '[id].js',
+    chunkFilename: '[id].chunk.js',
     filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist'),
-    sourceMapFilename: '[name].map',
+    sourceMapFilename: '[name].map.js',
   },
   target: 'node'
 };

@@ -3,7 +3,7 @@ import { Dispatch, bindActionCreators } from 'redux';
 import React, { ComponentClass } from 'react';
 import { connect } from 'react-redux';
 import withStyles from 'isomorphic-style-loader/withStyles';
-import Styles from './grid.scss';
+import Styles from './grid.styl';
 
 const ResponsiveGridLayout: ComponentClass<ResponsiveProps, WidthProviderProps> = WidthProvider(Responsive);
 
@@ -37,8 +37,6 @@ function mapDispatchToProps(dispatch: Dispatch): IProps {
 function mapStateToProps(/* store: IStore */): IProps {
   return { store: {} };
 }
-
-// interface IConnectDispatch { }
 
 interface IProps {
   actions?: {};

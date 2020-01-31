@@ -8,6 +8,7 @@
     "noImplicitAny": true,
     "outDir": "dist",
     "paths": {
+      "@components": ["src/common/components"],
       "@store": ["src/store"]
     },
     "sourceMap": true,
@@ -17,9 +18,6 @@
     "node_modules",
     "dist"
   ],
-  // "files": [
-  //   "postcss.config.js"
-  // ],
   "include": [
     "src/**/*"
   ]

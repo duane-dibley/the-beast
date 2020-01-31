@@ -7,6 +7,11 @@ interface IInitDataState {
   message: string;
 }
 
+interface IIsoStyle {
+  _getCss(): string;
+  _insertCss(): void;
+}
+
 interface IStore {
   app?: IAppState;
   initData?: IInitDataState;

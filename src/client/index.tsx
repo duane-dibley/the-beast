@@ -3,9 +3,11 @@ import StyleContext from 'isomorphic-style-loader/StyleContext';
 import { Store, createStore } from 'redux';
 import { Provider } from 'react-redux';
 import React from 'react';
-import { hydrate, render } from 'react-dom';
+import { hydrate } from 'react-dom';
 import reducer from '@store';
-import App from '../common/app';
+import { AppComponent, LoginComponent } from '@components';
+import { ThemeProvider } from '@material-ui/core/styles';
+import theme from '../common/styles';
 
 const appdiv: Element = document.getElementById('appdiv');
 
@@ -14,15 +16,31 @@ delete window.INIT_DATA;
 
 const store: Store = createStore(reducer, initData);
 
-const insertCss: VoidFunction = (...styles: any[]) => {
-  const removeCss: any = styles.map((style: any) => style._insertCss());
-  return (): void => removeCss.forEach((dispose: any) => dispose());
-};
+// TODO - need to fix types for iso style
+function insertCss(...styles: IIsoStyle[]): any {
+  const removeCss: void[] = styles.map((style: IIsoStyle): void => style._insertCss());
+  return (): any => removeCss.forEach((dispose: any) => dispose());
+}
+
+// function Main(): JSX.Element {
+//   React.useEffect(() => {
+//     const jssStyles: Element = document.querySelector('#jss-server-side');
+//     if (jssStyles) {
+//       jssStyles.parentElement.removeChild(jssStyles);
+//     }
+//   }, []);
+
+//   return (
+//     <ThemeProvider theme={theme}>
+//       <LoginComponent />
+//     </ThemeProvider>
+//   );
+// }
 
 hydrate(
   <Provider store={store}>
     <StyleContext.Provider value={{ insertCss }}>
-      <App />
+      <LoginComponent />
     </StyleContext.Provider>
   </Provider>,
   appdiv

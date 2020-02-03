@@ -1,8 +1,8 @@
 import { Layouts, Responsive, ResponsiveProps, WidthProvider, WidthProviderProps } from 'react-grid-layout';
-import { Dispatch, bindActionCreators } from 'redux';
+// import { Dispatch, bindActionCreators } from 'redux';
 import React, { ComponentClass } from 'react';
-import { connect } from 'react-redux';
-import withStyles from 'isomorphic-style-loader/withStyles';
+// import { connect } from 'react-redux';
+// import withStyles from 'isomorphic-style-loader/withStyles';
 import Styles from './grid.styl';
 
 const ResponsiveGridLayout: ComponentClass<ResponsiveProps, WidthProviderProps> = WidthProvider(Responsive);
@@ -15,7 +15,7 @@ const layouts: Layouts = {
   ]
 };
 
-function GridComponent(/* props: IProps */): JSX.Element {
+export default function GridComponent(/* props: IProps */): JSX.Element {
   // {lg: layout1, md: layout2, ...}
   return (
     <ResponsiveGridLayout className="layout"
@@ -30,17 +30,17 @@ function GridComponent(/* props: IProps */): JSX.Element {
   );
 }
 
-function mapDispatchToProps(dispatch: Dispatch): IProps {
-  return { actions: bindActionCreators({}, dispatch) };
-}
+// function mapDispatchToProps(dispatch: Dispatch): IProps {
+//   return { actions: bindActionCreators({}, dispatch) };
+// }
 
-function mapStateToProps(/* store: IStore */): IProps {
-  return { store: {} };
-}
+// function mapStateToProps(/* store: IStore */): IProps {
+//   return { store: {} };
+// }
 
-interface IProps {
-  actions?: {};
-  store?: {};
-}
+// interface IProps {
+//   actions?: {};
+//   store?: {};
+// }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(Styles)(GridComponent));
+// export default connect(mapStateToProps, mapDispatchToProps)(withStyles(Styles)(GridComponent));

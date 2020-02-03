@@ -6,15 +6,18 @@ const themeOptions: ThemeOptions = {
   palette: {
     primary: {
       main: '#3f51b5',
+      // main: '#424242',
     },
     secondary: {
       main: '#19857b',
+      // main: '#808080',
     },
     error: {
       main: red.A400,
     },
     background: {
       default: '#fafafa',
+      // default: '#303030',
     },
   },
 };

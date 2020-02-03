@@ -1,26 +1,40 @@
 /* eslint-env browser */
-import StyleContext from 'isomorphic-style-loader/StyleContext';
-import { Store, createStore } from 'redux';
-import { Provider } from 'react-redux';
+// import StyleContext from 'isomorphic-style-loader/StyleContext';
+// import { Store, createStore } from 'redux';
+// import { Provider } from 'react-redux';
+// import React from 'react';
+// import { hydrate, render } from 'react-dom';
+// import reducer from '@store';
+// import { AppComponent, LoginComponent } from '@components';
+// import { ThemeProvider } from '@material-ui/core/styles';
+// import theme from '@styles';
+// import AppRoutes from '@routes';
+//
 import React from 'react';
-import { hydrate } from 'react-dom';
-import reducer from '@store';
-import { AppComponent, LoginComponent } from '@components';
-import { ThemeProvider } from '@material-ui/core/styles';
-import theme from '../common/styles';
+import { hydrate, render } from 'react-dom';
+//
+import { BrowserRouterHoc, ThemeProviderHoc } from '@hoc';
+import AppRoutes from '@routes';
 
-const appdiv: Element = document.getElementById('appdiv');
+render(
+  ThemeProviderHoc(
+    BrowserRouterHoc(<AppRoutes />)
+  ),
+  document.getElementById('appdiv')
+);
 
-const initData: IStore = window.INIT_DATA;
-delete window.INIT_DATA;
+// const appdiv: Element = document.getElementById('appdiv');
 
-const store: Store = createStore(reducer, initData);
+// const initData: IStore = window.INIT_DATA;
+// delete window.INIT_DATA;
 
-// TODO - need to fix types for iso style
-function insertCss(...styles: IIsoStyle[]): any {
-  const removeCss: void[] = styles.map((style: IIsoStyle): void => style._insertCss());
-  return (): any => removeCss.forEach((dispose: any) => dispose());
-}
+// const store: Store = createStore(reducer, initData);
+
+// // TODO - need to fix types for iso style
+// function insertCss(...styles: IIsoStyle[]): any {
+//   const removeCss: void[] = styles.map((style: IIsoStyle): void => style._insertCss());
+//   return (): any => removeCss.forEach((dispose: any) => dispose());
+// }
 
 // function Main(): JSX.Element {
 //   React.useEffect(() => {
@@ -37,11 +51,11 @@ function insertCss(...styles: IIsoStyle[]): any {
 //   );
 // }
 
-hydrate(
-  <Provider store={store}>
-    <StyleContext.Provider value={{ insertCss }}>
-      <LoginComponent />
-    </StyleContext.Provider>
-  </Provider>,
-  appdiv
-);
+// hydrate(
+//   <Provider store={store}>
+//     <StyleContext.Provider value={{ insertCss }}>
+//       <LoginComponent />
+//     </StyleContext.Provider>
+//   </Provider>,
+//   appdiv
+// );

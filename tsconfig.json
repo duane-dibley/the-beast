@@ -9,7 +9,10 @@
     "outDir": "dist",
     "paths": {
       "@components": ["src/common/components"],
-      "@store": ["src/store"]
+      "@hoc": ["src/common/hoc"],
+      "@routes": ["src/common/routes"],
+      "@store": ["src/common/store"],
+      "@styles": ["src/common/styles"]
     },
     "sourceMap": true,
     "target": "es6",

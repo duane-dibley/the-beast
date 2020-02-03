@@ -55,7 +55,10 @@ const config: Configuration = {
   resolve: {
     alias: {
       '@components': path.resolve(__dirname, 'src/common/components'),
-      '@store': path.resolve(__dirname, 'src/store')
+      '@hoc': path.resolve(__dirname, 'src/common/hoc'),
+      '@routes': path.resolve(__dirname, 'src/common/routes'),
+      '@store': path.resolve(__dirname, 'src/common/store'),
+      '@styles': path.resolve(__dirname, 'src/common/styles')
     },
     extensions: ['.css', '.js', '.scss', '.styl', '.ts', '.tsx']
   }

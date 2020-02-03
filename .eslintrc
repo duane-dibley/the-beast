@@ -2,9 +2,10 @@
   "parser": "@typescript-eslint/parser",
   "plugins": ["@typescript-eslint"],
   "extends": [
-    "airbnb",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:import/typescript"
+    "airbnb-typescript",
+    "plugin:react/recommended",
+    "plugin:import/recommended",
+    "plugin:@typescript-eslint/recommended"
   ],
   "rules": {
     "block-spacing": 1,

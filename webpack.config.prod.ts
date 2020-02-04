@@ -1,3 +1,4 @@
+import autoprefixer from 'autoprefixer';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import path from 'path';
 import { Configuration, RuleSetRule, Resolve, Plugin } from 'webpack';
@@ -13,7 +14,6 @@ const rules: RuleSetRule[] = [
   },
   {
     include: path.resolve(__dirname, 'src/app'),
-    // loader: ['style-loader, css-loader', 'stylus-loader'],
     test: /\.styl$/,
     use: [
       MiniCssExtractPlugin.loader,
@@ -27,15 +27,7 @@ const rules: RuleSetRule[] = [
       {
         loader: 'postcss-loader',
         options: {
-          // TODO - Attempt to remove need for postcss.config.js
-          // or implement using pastcss.config.ts somehow.
-          // options: {
-          //   config: {
-          //     path: path.resolve(__dirname, 'postcss.config.ts')
-          //   },
-          //   plugins: [autoprefixer()],
-          // },
-          sourceMap: true
+          plugins: [autoprefixer()]
         }
       },
       {

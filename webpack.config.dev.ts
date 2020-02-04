@@ -1,3 +1,4 @@
+import autoprefixer from 'autoprefixer';
 import path from 'path';
 import { Configuration } from 'webpack';
 import webpackNodeExternals from 'webpack-node-externals';
@@ -9,7 +10,12 @@ const config: Configuration = {
         use: [
           'isomorphic-style-loader',
           'css-loader',
-          'postcss-loader',
+          {
+            loader: 'postcss-loader',
+            options: {
+              plugins: [autoprefixer()]
+            }
+          }
         ],
         test: /\.css$/
       },
@@ -27,7 +33,12 @@ const config: Configuration = {
             loader: 'css-loader',
             options: { modules: true, sourceMap: true }
           },
-          'postcss-loader',
+          {
+            loader: 'postcss-loader',
+            options: {
+              plugins: [autoprefixer()]
+            }
+          },
           {
             loader: 'sass-loader',
             options: { sourceMap: true }
@@ -43,7 +54,12 @@ const config: Configuration = {
             loader: 'css-loader',
             options: { modules: true, sourceMap: true }
           },
-          'postcss-loader',
+          {
+            loader: 'postcss-loader',
+            options: {
+              plugins: [autoprefixer()]
+            }
+          },
           {
             loader: 'stylus-loader',
             options: { sourceMap: true }

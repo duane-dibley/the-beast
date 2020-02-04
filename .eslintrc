@@ -26,6 +26,7 @@
     "react/jsx-filename-extension": [1, { "extensions": [".tsx"] }],
     "react/jsx-first-prop-new-line": 0,
     "react/prefer-stateless-function": 1,
+    "react/static-property-placement": [1, "static public field"],
     // "sort-imports": 1,
     //
     "@typescript-eslint/interface-name-prefix": 0,

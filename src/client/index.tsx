@@ -10,16 +10,38 @@
 // import theme from '@styles';
 // import AppRoutes from '@routes';
 //
-import React from 'react';
+import React, { useEffect } from 'react';
 import { hydrate, render } from 'react-dom';
+import { AnyAction, createStore, Store } from 'redux';
 //
-import { BrowserRouterHoc, ThemeProviderHoc } from '@hoc';
+import { BrowserRouterHoc, StoreProviderHoc, StyleProviderHoc, ThemeProviderHoc } from '@hoc';
 import AppRoutes from '@routes';
+import AppReducer from '@store';
 
-render(
-  ThemeProviderHoc(
-    BrowserRouterHoc(<AppRoutes />)
-  ),
+function Main(): JSX.Element {
+  // Remove theme applied on server
+  useEffect(() => {
+    const jssStyles: Element = document.querySelector('#jss-server-side');
+    if (jssStyles) {
+      jssStyles.parentElement.removeChild(jssStyles);
+    }
+  }, []);
+
+  const store: Store<IStore, AnyAction> = createStore(AppReducer);
+
+  return ThemeProviderHoc(
+    StyleProviderHoc(
+      StoreProviderHoc(
+        BrowserRouterHoc(<AppRoutes />),
+        store
+      ),
+      'client'
+    )
+  );
+}
+
+hydrate(
+  <Main />,
   document.getElementById('appdiv')
 );
 

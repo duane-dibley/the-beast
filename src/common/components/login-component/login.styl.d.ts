@@ -1,9 +1,6 @@
 declare namespace LoginStylModule {
   export interface ILoginStyl {
     avatar: string;
-    form: string;
-    paper: string;
-    submit: string;
   }
 }
 

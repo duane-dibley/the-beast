@@ -1,4 +1,4 @@
-// import withStyles from 'isomorphic-style-loader/withStyles';
+import withStyles from 'isomorphic-style-loader/withStyles';
 import React from 'react';
 // import { connect } from 'react-redux';
 // import { Dispatch, bindActionCreators } from 'redux';
@@ -16,18 +16,20 @@ import Typography from '@material-ui/core/Typography';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Styles from './login.styl';
 
-export default function LoginComponent(): JSX.Element {
+function LoginComponent(): JSX.Element {
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
-      <div className={Styles.paper}>
+      {/* <div className={Styles.paper}> */}
+      <div>
         <Avatar className={Styles.avatar}>
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <form className={Styles.form} noValidate>
+        {/* <form className={Styles.form} noValidate> */}
+        <form noValidate>
           <TextField
             variant="outlined"
             margin="normal"
@@ -59,7 +61,7 @@ export default function LoginComponent(): JSX.Element {
             fullWidth
             variant="contained"
             color="primary"
-            className={Styles.submit}
+            // className={Styles.submit}
           >
             Sign In
           </Button>
@@ -110,5 +112,7 @@ function Copyright(): JSX.Element {
 //   actions?: {};
 //   store?: {};
 // }
+
+export default withStyles(Styles)(LoginComponent);
 
 // export default connect(mapStateToProps, mapDispatchToProps)(withStyles(Styles)(LoginComponent));

@@ -1,6 +1,8 @@
 {
   "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint"],
+  "plugins": [
+    "@typescript-eslint"
+  ],
   "extends": [
     "airbnb-typescript",
     "plugin:react/recommended",
@@ -10,23 +12,41 @@
   "rules": {
     "block-spacing": 1,
     "comma-dangle": 0,
-    // set for postcss - shouldn't be using
+    // TODO -set for postcss, shouldn't be using
     "global-require": 0,
+    //
     "import/extensions": 0,
-    "import/no-extraneous-dependencies": [1, { "devDependencies": true  }],
+    "import/no-extraneous-dependencies": [
+      1,
+      {
+        "devDependencies": true
+      }
+    ],
     "import/no-unresolved": 0,
     "import/prefer-default-export": 0,
     "linebreak-style": 0,
     "max-len": 0,
     "no-lone-blocks": 1,
+    "no-redeclare": 0,
     "no-underscore-dangle": 0,
     "no-use-before-define": 0,
     "object-curly-newline": 0,
     "padded-blocks": 0,
-    "react/jsx-filename-extension": [1, { "extensions": [".tsx"] }],
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [
+          ".tsx"
+        ]
+      }
+    ],
     "react/jsx-first-prop-new-line": 0,
     "react/prefer-stateless-function": 1,
-    "react/static-property-placement": [1, "static public field"],
+    "react/static-property-placement": [
+      1,
+      "static public field"
+    ],
+    // TODO - Not behaving for imports with relative file path .
     // "sort-imports": 1,
     //
     "@typescript-eslint/interface-name-prefix": 0,
@@ -35,6 +55,7 @@
     "@typescript-eslint/typedef": [
       1,
       {
+        // TODO - Not sure how to set types for const { a, b } = x
         // "arrayDestructuring": true,
         // "objectDestructuring": true,
         "variableDeclaration": true

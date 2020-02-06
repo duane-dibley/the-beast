@@ -11,5 +11,4 @@ dist
 *.css
 *.scss
 *.styl
-*.d.ts
 *.html

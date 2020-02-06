@@ -1,9 +1,7 @@
-import AppComponent from './app';
-import GridComponent from './grid-component/GridComponent';
-import LoginComponent from './login-component/LoginComponent';
+import GridComponent from './grid/GridComponent';
+import LoginComponent from './login/LoginComponent';
 
 export {
-  AppComponent,
   GridComponent,
   LoginComponent
 };

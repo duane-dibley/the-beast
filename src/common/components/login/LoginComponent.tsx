@@ -1,7 +1,5 @@
-import withStyles from 'isomorphic-style-loader/withStyles';
 import React from 'react';
-// import { connect } from 'react-redux';
-// import { Dispatch, bindActionCreators } from 'redux';
+//
 import Avatar from '@material-ui/core/Avatar';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
@@ -14,6 +12,7 @@ import Link from '@material-ui/core/Link';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+//
 import Styles from './login.styl';
 
 function LoginComponent(): JSX.Element {
@@ -61,7 +60,7 @@ function LoginComponent(): JSX.Element {
             fullWidth
             variant="contained"
             color="primary"
-            // className={Styles.submit}
+          // className={Styles.submit}
           >
             Sign In
           </Button>
@@ -86,14 +85,6 @@ function LoginComponent(): JSX.Element {
   );
 }
 
-// function mapDispatchToProps(dispatch: Dispatch): IProps {
-//   return { actions: bindActionCreators({}, dispatch) };
-// }
-
-// function mapStateToProps(/* store: IStore */): IProps {
-//   return { store: {} };
-// }
-
 function Copyright(): JSX.Element {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -108,11 +99,4 @@ function Copyright(): JSX.Element {
   );
 }
 
-// interface IProps {
-//   actions?: {};
-//   store?: {};
-// }
-
-export default withStyles(Styles)(LoginComponent);
-
-// export default connect(mapStateToProps, mapDispatchToProps)(withStyles(Styles)(LoginComponent));
+export default LoginComponent;

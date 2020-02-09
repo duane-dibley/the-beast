@@ -1,3 +1,4 @@
+import withStyles from 'isomorphic-style-loader/withStyles';
 import React from 'react';
 //
 import Avatar from '@material-ui/core/Avatar';
@@ -99,4 +100,4 @@ function Copyright(): JSX.Element {
   );
 }
 
-export default LoginComponent;
+export default withStyles(Styles)(LoginComponent);

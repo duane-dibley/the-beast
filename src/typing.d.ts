@@ -13,6 +13,10 @@ interface IStore {
 }
 
 /* * * * * * * * * * MISC * * * * * * * * * */
+interface IContext {
+  insertCss(): void;
+}
+
 interface Window {
   INIT_DATA: IStore;
 }

@@ -1,4 +1,5 @@
 import express, { Application, Request, Response } from 'express';
+import StyleContext from 'isomorphic-style-loader/StyleContext';
 import path from 'path';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
@@ -6,7 +7,7 @@ import { AnyAction, createStore, Store } from 'redux';
 import serialize from 'serialize-javascript';
 //
 import { ServerStyleSheets } from '@material-ui/core/styles';
-import { StaticRouterHoc, StoreProviderHoc, ThemeProviderHoc } from '@hoc';
+import { ContextProvidorHoc, StaticRouterHoc, StoreProviderHoc, ThemeProviderHoc } from '@hoc';
 import AppRoutes from '@routes';
 import AppReducer from '@store';
 
@@ -27,7 +28,9 @@ app.get('/', (req: Request, res: Response) => {
 
 // editor application route
 app.get('/editor', (req: Request, res: Response) => {
-  const context: {} = {};
+  const css: Set<string> = new Set();
+  const insertCss: () => void = (...styles: any) => styles.forEach((s: any) => css.add(s._getCss()));
+  const context: IContext = { insertCss };
   const sheets: ServerStyleSheets = new ServerStyleSheets();
 
   // TODO - carry out init app actions
@@ -36,7 +39,15 @@ app.get('/editor', (req: Request, res: Response) => {
   const Tsx: JSX.Element = sheets.collect(
     ThemeProviderHoc(
       StoreProviderHoc(
-        StaticRouterHoc(<AppRoutes />, req.url, context),
+        StaticRouterHoc(
+          <StyleContext.Provider value={{ insertCss }}>
+            <ContextProvidorHoc context={context}>
+              <AppRoutes />
+            </ContextProvidorHoc>
+          </StyleContext.Provider>,
+          req.url,
+          context
+        ),
         store
       )
     )
@@ -45,19 +56,30 @@ app.get('/editor', (req: Request, res: Response) => {
   res.end(htmlTemplate(
     renderToString(Tsx),
     sheets.toString(),
-    store.getState()
+    store.getState(),
+    css
   ));
 });
 
 // login page route
 app.get('/login', (req: Request, res: Response) => {
-  const context: {} = {};
+  const css: Set<string> = new Set();
+  const insertCss: () => void = (...styles: any) => styles.forEach((s: any) => css.add(s._getCss()));
+  const context: IContext = { insertCss };
   const sheets: ServerStyleSheets = new ServerStyleSheets();
 
   const Tsx: JSX.Element = sheets.collect(
     ThemeProviderHoc(
       StoreProviderHoc(
-        StaticRouterHoc(<AppRoutes />, req.url, context),
+        StaticRouterHoc(
+          <StyleContext.Provider value={{ insertCss }}>
+            <ContextProvidorHoc context={context}>
+              <AppRoutes />
+            </ContextProvidorHoc>
+          </StyleContext.Provider>,
+          req.url,
+          context
+        ),
         store
       )
     )
@@ -66,7 +88,8 @@ app.get('/login', (req: Request, res: Response) => {
   res.end(htmlTemplate(
     renderToString(Tsx),
     sheets.toString(),
-    store.getState()
+    store.getState(),
+    css
   ));
 });
 
@@ -76,7 +99,7 @@ const store: Store<IStore, AnyAction> = createStore(AppReducer);
 
 /* * * * * * * * * * Declaring computational tools * * * * * * * * * */
 
-function htmlTemplate(el: string, theme?: string, initState?: IStore): string {
+function htmlTemplate(el: string, theme?: string, initState?: IStore, css?: Set<string>): string {
   return `
         <!DOCTYPE html>
         <html>
@@ -85,6 +108,7 @@ function htmlTemplate(el: string, theme?: string, initState?: IStore): string {
             <meta charset="utf-8">
             <title>React SSR</title>
             <style id="jss-server-side">${theme}</style>
+            <style type="text/css">${[...css].join('')}</style>
           </head>
 
           <body>

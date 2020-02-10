@@ -1,6 +1,8 @@
 /* eslint-env browser */
 import React, { useEffect } from 'react';
 import { hydrate } from 'react-dom';
+
+// TODO - tidy with paths
 import App from '../common/app';
 
 const context: IContext = { insertCss };

@@ -7,7 +7,11 @@ import serialize from 'serialize-javascript';
 //
 import { ServerStyleSheets } from '@material-ui/core/styles';
 import AppReducer from '@store';
+
+// TODO - tidy with paths
 import App from '../common/app';
+// TODO - add client logic
+// import Client from '../lib/client_4_3_0S5_22475.js';
 
 /* * * * * * * * * * Setting up express application. * * * * * * * * * */
 
@@ -36,7 +40,8 @@ app.get('/editor', (req: Request, res: Response) => {
   res.end(htmlTemplate(
     renderToString(Tsx),
     sheets.toString(),
-    store.getState()
+    store.getState(),
+    // css
   ));
 });
 
@@ -49,27 +54,25 @@ app.get('/login', (req: Request, res: Response) => {
   res.end(htmlTemplate(
     renderToString(Tsx),
     sheets.toString(),
-    store.getState()
+    store.getState(),
+    // css
   ));
 });
 
-/* * * * * * * * * * Server common constants * * * * * * * * * */
+/* * * * * * * * * * Common constants * * * * * * * * * */
 
 const css: Set<string> = new Set();
-
 const context: IContext = { insertCss };
-
 const sheets: ServerStyleSheets = new ServerStyleSheets();
-
 const store: Store<IStore, AnyAction> = createStore(AppReducer);
 
 function insertCss(...styles: IIsoStyle[]): void {
   styles.forEach((s: IIsoStyle) => css.add(s._getCss()));
 }
 
-/* * * * * * * * * * Declaring computational tools * * * * * * * * * */
+/* * * * * * * * * * Tools * * * * * * * * * */
 
-function htmlTemplate(el: string, theme?: string, initState?: IStore /* , css?: Set<string> */): string {
+function htmlTemplate(el: string, theme: string, initState: IStore /* , css: Set<string> */): string {
   return `
         <!DOCTYPE html>
         <html>

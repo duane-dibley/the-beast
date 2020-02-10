@@ -1,10 +1,11 @@
 !**/.eslintrc*
 node_modules*
 dist
+src/lib
+.gitignore
 *.svg
 *.ico
 *.json
-.gitignore
 *.md
 *.log
 *.lock

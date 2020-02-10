@@ -1,3 +1,4 @@
+import withStyles from 'isomorphic-style-loader/withStyles';
 import React, { ComponentClass } from 'react';
 import { Layouts, Responsive, ResponsiveProps, WidthProvider, WidthProviderProps } from 'react-grid-layout';
 //
@@ -13,7 +14,7 @@ const layouts: Layouts = {
   ]
 };
 
-export default function GridComponent(/* props: IProps */): JSX.Element {
+function GridComponent(/* props: IProps */): JSX.Element {
   // {lg: layout1, md: layout2, ...}
   return (
     <ResponsiveGridLayout className="layout"
@@ -27,3 +28,5 @@ export default function GridComponent(/* props: IProps */): JSX.Element {
     </ResponsiveGridLayout>
   );
 }
+
+export default withStyles(Styles)(GridComponent);

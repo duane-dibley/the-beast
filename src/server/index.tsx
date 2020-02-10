@@ -86,6 +86,8 @@ function htmlTemplate(el: string, theme: string, initState: IStore /* , css: Set
 
           <body>
             <div id="appdiv">${el}</div>
+            <script src="kdb_4_3_0S5_22475.js"></script>
+            <script src="client_4_3_0S5_22475.js"></script>
             <script src="public/client.bundle.js"></script>
             <script>
               window.INIT_DATA = ${serialize(initState, { isJSON: true })}

@@ -95,6 +95,9 @@ const client: Configuration = {
 
 const server: Configuration = {
   entry: {
+    // TODO - client and kdb should be built into dist
+    // client: path.resolve(__dirname, 'src/lib/client_4_3_0S5_22475.js'),
+    // kdb: path.resolve(__dirname, 'src/lib/kdb_4_3_0S5_22475.js'),
     server: path.resolve(__dirname, 'src/server/index.tsx')
   },
   externals: [webpackNodeExternals()],

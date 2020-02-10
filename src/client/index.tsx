@@ -1,21 +1,16 @@
 /* eslint-env browser */
-import StyleContext from 'isomorphic-style-loader/StyleContext';
 import React, { useEffect } from 'react';
-import { hydrate, render } from 'react-dom';
-import { AnyAction, createStore, Store } from 'redux';
-//
-import { BrowserRouterHoc, ContextProvidorHoc, StoreProviderHoc, ThemeProviderHoc } from '@hoc';
-import AppRoutes from '@routes';
-import AppReducer from '@store';
-
-const insertCss: () => void = (...styles: any) => {
-  const removeCss: any = styles.map((x: any) => x._insertCss());
-  return (): any => {
-    removeCss.forEach((f: any) => f());
-  };
-};
+import { hydrate } from 'react-dom';
+import App from '../common/app';
 
 const context: IContext = { insertCss };
+
+function insertCss(...styles: IIsoStyle[]): () => void {
+  const removeCss: void[] = styles.map((x: IIsoStyle) => x._insertCss());
+  return (): void => {
+    removeCss.forEach((f: any) => f());
+  };
+}
 
 function Main(): JSX.Element {
   // Remove theme applied on server
@@ -26,27 +21,9 @@ function Main(): JSX.Element {
     }
   }, []);
 
-  const store: Store<IStore, AnyAction> = createStore(AppReducer);
-
-  return ThemeProviderHoc(
-    StoreProviderHoc(
-      BrowserRouterHoc(
-        <StyleContext.Provider value={{ insertCss }}>
-          <ContextProvidorHoc context={context}>
-            <AppRoutes />
-          </ContextProvidorHoc>
-        </StyleContext.Provider>
-      ),
-      store
-    )
-  );
+  return <App context={context} />;
 }
 
-// render(
-//   <Main />,
-//   document.getElementById('appdiv')
-// );
-//
 hydrate(
   <Main />,
   document.getElementById('appdiv')

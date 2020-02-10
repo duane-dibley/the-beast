@@ -1,6 +1,7 @@
 /* * * * * * * * * * STORE * * * * * * * * * */
 interface IAppState {
-  data: string;
+  context: IContext;
+  url?: string;
 }
 
 interface IInitDataState {
@@ -15,6 +16,12 @@ interface IStore {
 /* * * * * * * * * * MISC * * * * * * * * * */
 interface IContext {
   insertCss(): void;
+}
+
+interface IIsoStyle {
+  _getContent?(): string;
+  _getCss?(): string;
+  _insertCss?(): void;
 }
 
 interface Window {

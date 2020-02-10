@@ -1,7 +1,8 @@
 import { AnyAction, Reducer } from 'redux';
 
 const initState: IAppState = {
-  data: ''
+  context: { insertCss: (): void => { } },
+  url: ''
 };
 
 const reducer: Reducer<IAppState, AnyAction> = (state: IAppState = initState, action: AnyAction) => {

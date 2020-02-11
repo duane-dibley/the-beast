@@ -1,3 +1,4 @@
+/* global web */
 /* eslint-env browser */
 import React, { useEffect } from 'react';
 import { hydrate } from 'react-dom';
@@ -9,7 +10,7 @@ const context: IContext = { insertCss };
 
 function insertCss(...styles: IIsoStyle[]): () => void {
   const removeCss: void[] = styles.map((x: IIsoStyle) => x._insertCss());
-  return (): void => {
+  return (): any => {
     removeCss.forEach((f: any) => f());
   };
 }
@@ -25,6 +26,20 @@ function Main(): JSX.Element {
 
   return <App context={context} />;
 }
+
+// const host: string = '';
+// const port: number = 0;
+// const secure: boolean = true;
+// const fromURL: boolean = false;
+// //
+// const useBinary: boolean = false;
+
+// const client: any = new web.Client({
+//   ...{ host },
+//   ...{ port },
+//   ...{ secure },
+//   ...{ fromURL }
+// }, useBinary);
 
 hydrate(
   <Main />,

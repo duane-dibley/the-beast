@@ -11,31 +11,33 @@ export default function app(props: IAppState): JSX.Element {
   const { context, url } = props;
   const { insertCss } = context;
 
-  if (!url) {
+  // server
+  if (url) {
     return ThemeProviderHoc(
       StoreProviderHoc(
-        BrowserRouterHoc(
+        StaticRouterHoc(
           <StyleContext.Provider value={{ insertCss }}>
             <ContextProvidorHoc context={context}>
               <AppRoutes />
             </ContextProvidorHoc>
-          </StyleContext.Provider>
+          </StyleContext.Provider>,
+          url,
+          context
         ),
         store
       )
     );
   }
 
+  // client
   return ThemeProviderHoc(
     StoreProviderHoc(
-      StaticRouterHoc(
+      BrowserRouterHoc(
         <StyleContext.Provider value={{ insertCss }}>
           <ContextProvidorHoc context={context}>
             <AppRoutes />
           </ContextProvidorHoc>
-        </StyleContext.Provider>,
-        url,
-        context
+        </StyleContext.Provider>
       ),
       store
     )

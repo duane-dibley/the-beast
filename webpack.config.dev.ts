@@ -74,7 +74,9 @@ const config: Configuration = {
       '@hoc': path.resolve(__dirname, 'src/common/hoc'),
       '@routes': path.resolve(__dirname, 'src/common/routes'),
       '@store': path.resolve(__dirname, 'src/common/store'),
-      '@styles': path.resolve(__dirname, 'src/common/styles')
+      '@styles': path.resolve(__dirname, 'src/common/styles'),
+      kdb: path.resolve(__dirname, 'src/lib/kdb_4_3_0S5_22475.js'),
+      web: path.resolve(__dirname, 'src/lib/client_4_3_0S5_22475.js'),
     },
     extensions: ['.css', '.js', '.scss', '.styl', '.ts', '.tsx']
   }

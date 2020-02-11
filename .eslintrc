@@ -26,6 +26,7 @@
     "import/prefer-default-export": 0,
     "linebreak-style": 0,
     "max-len": 0,
+    "new-cap": 0,
     "no-lone-blocks": 1,
     "no-redeclare": 0,
     "no-return-assign": 0,

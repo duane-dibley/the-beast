@@ -12,7 +12,9 @@
       "@hoc": ["src/common/hoc"],
       "@routes": ["src/common/routes"],
       "@store": ["src/common/store"],
-      "@styles": ["src/common/styles"]
+      "@styles": ["src/common/styles"],
+      "kdb": ["src/lib/kdb_4_3_0S5_22475.js"],
+      "web": ["src/lib/client_4_3_0S5_22475.js"],
     },
     "sourceMap": true,
     "target": "es6",

@@ -1,10 +1,19 @@
-/* global web */
 /* eslint-env browser */
 import React, { useEffect } from 'react';
 import { hydrate } from 'react-dom';
 
+import { Client } from 'web';
+
 // TODO - tidy with paths
 import App from '../common/app';
+
+// const host: string = 'dev1';
+// const port: number = 19400;
+// const secure: boolean = false;
+// const fromURL: boolean = false;
+// const useBinary: boolean = false;
+// const client: IWebClient = new Client({ host, port, secure, fromURL }, useBinary);
+
 
 const context: IContext = { insertCss };
 
@@ -26,20 +35,6 @@ function Main(): JSX.Element {
 
   return <App context={context} />;
 }
-
-// const host: string = '';
-// const port: number = 0;
-// const secure: boolean = true;
-// const fromURL: boolean = false;
-// //
-// const useBinary: boolean = false;
-
-// const client: any = new web.Client({
-//   ...{ host },
-//   ...{ port },
-//   ...{ secure },
-//   ...{ fromURL }
-// }, useBinary);
 
 hydrate(
   <Main />,

@@ -1,17 +1,17 @@
-import express, { Application, Request, Response, NextFunction } from 'express';
+import express, { Application, Request, Response /* , NextFunction */ } from 'express';
 import path from 'path';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
-import { AnyAction, createStore, Store } from 'redux';
-import serialize from 'serialize-javascript';
+// import { AnyAction, createStore, Store } from 'redux';
+// import serialize from 'serialize-javascript';
 //
 import { ServerStyleSheets } from '@material-ui/core/styles';
 //
-import AppReducer from '@store';
+// import AppReducer from '@store';
 
 // TODO - working client on server
 // kdb is set on tsconfig and webpack paths/alias
-import { Client } from 'web';
+// import { Client } from 'web';
 
 // TODO - tidy with paths
 import App from '../common/app';
@@ -37,27 +37,22 @@ app.get('/', (req: Request, res: Response) => {
 
 // editor application route
 app.get('/editor', (req: Request, res: Response) => {
-  // TODO - carry out init app actions
-  // reduxStore.dispatch({ type: 'SET_MESSAGE', payload: 'Test message' });
-
   const { url } = req;
   res.end(htmlTemplate(
     renderToString(route(url)),
     sheets.toString(),
-    store.getState(),
+    // store.getState(),
     // css
   ));
 });
 
 // login page route
 app.get('/login', (req: Request, res: Response) => {
-  console.log('IN LOGIN ROUTE', { client });
-
   const { url } = req;
   res.send(htmlTemplate(
     renderToString(route(url)),
     sheets.toString(),
-    store.getState(),
+    // store.getState(),
     // css
   ));
 });
@@ -65,18 +60,18 @@ app.get('/login', (req: Request, res: Response) => {
 /* * * * * * * * * * Workflow * * * * * * * * * */
 
 // TODO - working client on server
-const host: string = '';
-const port: number = 0;
-const secure: boolean = true;
-const fromURL: boolean = false;
-const useBinary: boolean = false;
+// const host: string = '';
+// const port: number = 0;
+// const secure: boolean = true;
+// const fromURL: boolean = false;
+// const useBinary: boolean = false;
 
-const client: IWebClient = new Client({ host, port, secure, fromURL }, useBinary);
+// const client: IWebClient = new Client({ host, port, secure, fromURL }, useBinary);
 
 const css: Set<string> = new Set();
 const context: IContext = { insertCss };
 const sheets: ServerStyleSheets = new ServerStyleSheets();
-const store: Store<IStore, AnyAction> = createStore(AppReducer);
+// const store: Store<IStore, AnyAction> = createStore(AppReducer);
 
 function route(url: string): JSX.Element {
   return sheets.collect(<App context={context} url={url} />);
@@ -88,7 +83,13 @@ function insertCss(...styles: IIsoStyle[]): void {
 
 /* * * * * * * * * * Tools * * * * * * * * * */
 
-function htmlTemplate(el: string, theme: string, initState: IStore /* , css: Set<string> */): string {
+function htmlTemplate(el: string, theme: string, /* initState: IStore, css: Set<string> */): string {
+  // TODO - Server-side logic
+  // <script src="public/kdb_4_3_0S5_22475.js"></script>
+  // <script src="public/client_4_3_0S5_22475.js"></script>
+  // <script>
+  //   window.INIT_DATA = ${serialize(initState, { isJSON: true })}
+  // </script>
   return `
         <!DOCTYPE html>
         <html>
@@ -102,11 +103,6 @@ function htmlTemplate(el: string, theme: string, initState: IStore /* , css: Set
 
           <body>
             <div id="appdiv">${el}</div>
-            <script src="public/kdb_4_3_0S5_22475.js"></script>
-            <script src="public/client_4_3_0S5_22475.js"></script>
-            <script>
-              window.INIT_DATA = ${serialize(initState, { isJSON: true })}
-            </script>
             <script src="public/client.bundle.js"></script>
           </body>
 

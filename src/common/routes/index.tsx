@@ -1,7 +1,5 @@
-import withStyles from 'isomorphic-style-loader/withStyles';
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-//
 import EditorRoute from './EditorRoute';
 import LoginRoute from './LoginRoute';
 

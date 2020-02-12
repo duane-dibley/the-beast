@@ -44,6 +44,7 @@ interface IWebClient {
   /* eslint-disable-next-line */
   connection: any;
   logout(): void;
+  new(details: { host: string; port: number; secure: boolean; fromURL: boolean }, useBinary: boolean): any;
   ssoLogout(logoutType: string): void;
   resetPassword(user: string, old: string, pass: string): void;
   base64DeltaClient(): void;

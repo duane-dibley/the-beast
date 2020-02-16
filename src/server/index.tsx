@@ -9,9 +9,8 @@ import { ServerStyleSheets } from '@material-ui/core/styles';
 //
 // import AppReducer from '@store';
 
-// TODO - working client on server
-// kdb is set on tsconfig and webpack paths/alias
-// import { Client } from 'web';
+// import gridStyles from 'node_modules/react-grid-layout/css/styles.css';
+// import resizeStyles from 'node_modules/react-resizable/css/styles.css';
 
 // TODO - tidy with paths
 import App from '../common/app';
@@ -32,7 +31,7 @@ app.listen(5000, () => console.log('server running on port 5000'));
 // default route
 app.get('/', (req: Request, res: Response) => {
   // TODO - introduce login/auth/smal logic
-  res.redirect('/login');
+  res.redirect('/editor');
 });
 
 // editor application route
@@ -59,15 +58,6 @@ app.get('/login', (req: Request, res: Response) => {
 
 /* * * * * * * * * * Workflow * * * * * * * * * */
 
-// TODO - working client on server
-// const host: string = '';
-// const port: number = 0;
-// const secure: boolean = true;
-// const fromURL: boolean = false;
-// const useBinary: boolean = false;
-
-// const client: IWebClient = new Client({ host, port, secure, fromURL }, useBinary);
-
 const css: Set<string> = new Set();
 const context: IContext = { insertCss };
 const sheets: ServerStyleSheets = new ServerStyleSheets();
@@ -84,9 +74,8 @@ function insertCss(...styles: IIsoStyle[]): void {
 /* * * * * * * * * * Tools * * * * * * * * * */
 
 function htmlTemplate(el: string, theme: string, /* initState: IStore, css: Set<string> */): string {
-  // TODO - Server-side logic
-  // <script src="public/kdb_4_3_0S5_22475.js"></script>
-  // <script src="public/client_4_3_0S5_22475.js"></script>
+  // <link rel="stylesheet" type="text/css" href="/public/react-grid-layout.css">
+  // <link rel="stylesheet" type="text/css" href="/public/react-resizeable.css">
   // <script>
   //   window.INIT_DATA = ${serialize(initState, { isJSON: true })}
   // </script>
@@ -97,13 +86,14 @@ function htmlTemplate(el: string, theme: string, /* initState: IStore, css: Set<
           <head>
             <meta charset="utf-8">
             <title>React SSR</title>
+            <link rel="stylesheet" type="text/css" href="/server.bundle.css">
             <style id="jss-server-side">${theme}</style>
             <style type="text/css">${[...css].join('')}</style>
           </head>
 
           <body>
             <div id="appdiv">${el}</div>
-            <script src="public/client.bundle.js"></script>
+            <script src="/public/client.bundle.js"></script>
           </body>
 
         </html>

@@ -74,8 +74,6 @@ function insertCss(...styles: IIsoStyle[]): void {
 /* * * * * * * * * * Tools * * * * * * * * * */
 
 function htmlTemplate(el: string, theme: string, /* initState: IStore, css: Set<string> */): string {
-  // <link rel="stylesheet" type="text/css" href="/public/react-grid-layout.css">
-  // <link rel="stylesheet" type="text/css" href="/public/react-resizeable.css">
   // <script>
   //   window.INIT_DATA = ${serialize(initState, { isJSON: true })}
   // </script>
@@ -86,7 +84,7 @@ function htmlTemplate(el: string, theme: string, /* initState: IStore, css: Set<
           <head>
             <meta charset="utf-8">
             <title>React SSR</title>
-            <link rel="stylesheet" type="text/css" href="/server.bundle.css">
+            <link rel="stylesheet" type="text/css" href="public/client.bundle.css"></link>
             <style id="jss-server-side">${theme}</style>
             <style type="text/css">${[...css].join('')}</style>
           </head>

@@ -5,70 +5,6 @@ import webpackNodeExternals from 'webpack-node-externals';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
 const config: Configuration = {
-  // module: {
-  //   rules: [
-  //     {
-  //       use: [
-  //         'isomorphic-style-loader',
-  //         'css-loader',
-  //         {
-  //           loader: 'postcss-loader',
-  //           options: {
-  //             plugins: [autoprefixer()]
-  //           }
-  //         }
-  //       ],
-  //       test: /\.css$/
-  //     },
-  //     {
-  //       exclude: /node_modules/,
-  //       loader: 'ts-loader',
-  //       test: /\.tsx?$/
-  //     },
-  //     {
-  //       test: /\.scss$/,
-  //       use: [
-  //         'isomorphic-style-loader',
-  //         '@teamsupercell/typings-for-css-modules-loader',
-  //         {
-  //           loader: 'css-loader',
-  //           options: { modules: true, sourceMap: true }
-  //         },
-  //         {
-  //           loader: 'postcss-loader',
-  //           options: {
-  //             plugins: [autoprefixer()]
-  //           }
-  //         },
-  //         {
-  //           loader: 'sass-loader',
-  //           options: { sourceMap: true }
-  //         }
-  //       ]
-  //     },
-  //     {
-  //       test: /\.styl$/,
-  //       use: [
-  //         'isomorphic-style-loader',
-  //         '@teamsupercell/typings-for-css-modules-loader',
-  //         {
-  //           loader: 'css-loader',
-  //           options: { modules: true, sourceMap: true }
-  //         },
-  //         {
-  //           loader: 'postcss-loader',
-  //           options: {
-  //             plugins: [autoprefixer()]
-  //           }
-  //         },
-  //         {
-  //           loader: 'stylus-loader',
-  //           options: { sourceMap: true }
-  //         }
-  //       ]
-  //     }
-  //   ]
-  // },
   resolve: {
     alias: {
       '@components': path.resolve(__dirname, 'src/common/components'),
@@ -84,20 +20,18 @@ const config: Configuration = {
 const client: Configuration = {
   devtool: 'inline-source-map',
   entry: {
-    client: path.resolve(__dirname, 'src/client/index.tsx')
+    client: [
+      path.resolve(__dirname, 'src/client/index.tsx'),
+      path.resolve(__dirname, 'node_modules/react-grid-layout/css/styles.css'),
+      path.resolve(__dirname, 'node_modules/react-resizable/css/styles.css')
+    ]
   },
   module: {
     rules: [
       {
-        use: [
-          'isomorphic-style-loader',
-          'css-loader',
-          {
-            loader: 'postcss-loader',
-            options: {
-              plugins: [autoprefixer()]
-            }
-          }
+        loader: [
+          MiniCssExtractPlugin.loader, // instead of style-loader
+          'css-loader'
         ],
         test: /\.css$/
       },
@@ -155,27 +89,26 @@ const client: Configuration = {
     filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist/public'),
     sourceMapFilename: '[name].map.js',
-  }
+  },
+  plugins: [
+    new MiniCssExtractPlugin({
+      // Options similar to the same options in webpackOptions.output
+      // both options are optional
+      chunkFilename: '[id].css',
+      filename: '[name].bundle.css'
+    })
+  ]
 };
 
 const server: Configuration = {
   entry: {
     server: [
       path.resolve(__dirname, 'src/server/index.tsx'),
-      path.resolve(__dirname, 'node_modules/react-grid-layout/css/styles.css'),
-      path.resolve(__dirname, 'node_modules/react-resizable/css/styles.css')
     ]
   },
   externals: [webpackNodeExternals()],
   module: {
     rules: [
-      {
-        loader: [
-          MiniCssExtractPlugin.loader, // instead of style-loader
-          'css-loader'
-        ],
-        test: /\.css$/
-      },
       {
         exclude: /node_modules/,
         loader: 'ts-loader',
@@ -235,14 +168,6 @@ const server: Configuration = {
     path: path.resolve(__dirname, 'dist'),
     sourceMapFilename: '[name].map.js',
   },
-  plugins: [
-    new MiniCssExtractPlugin({
-      // Options similar to the same options in webpackOptions.output
-      // both options are optional
-      chunkFilename: '[id].css',
-      filename: '[name].bundle.css'
-    })
-  ],
   target: 'node'
 };
 

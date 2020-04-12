@@ -22,6 +22,9 @@
     "dist"
   ],
   "include": [
-    "src/**/*"
+    "src/**/*",
+    "webpack.config.dev.ts",
+    "webpack.config.prod.ts",
+    "webpack.config.ts"
   ]
 }

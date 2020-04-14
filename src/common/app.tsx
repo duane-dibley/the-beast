@@ -1,11 +1,20 @@
 import StyleContext from 'isomorphic-style-loader/StyleContext';
 import React from 'react';
-import { AnyAction, createStore, Store } from 'redux';
+import { AnyAction, applyMiddleware, createStore, Store } from 'redux';
+import createSagaMiddleware from 'redux-saga';
 import { BrowserRouterHoc, ContextProvidorHoc, StaticRouterHoc, StoreProviderHoc, ThemeProviderHoc } from '@hoc';
 import AppRoutes from '@routes';
-import AppReducer from '@store';
+import rootSaga from '@sagas';
+import rootReducer from '@store';
 
-const store: Store<IStore, AnyAction> = createStore(AppReducer);
+const sagaMiddleware = createSagaMiddleware();
+
+const store: Store<IStore, AnyAction> = createStore(
+  rootReducer,
+  applyMiddleware(sagaMiddleware)
+);
+
+sagaMiddleware.run(rootSaga);
 
 export default function app(props: IAppState): JSX.Element {
   const { context, url } = props;

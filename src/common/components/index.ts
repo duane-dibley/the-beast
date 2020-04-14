@@ -1,9 +1,9 @@
-import CompaniesComponent from './companies/CompaniesComponent';
+import CompanyComponent from './company/CompanyComponent';
 import GridComponent from './grid/GridComponent';
 import LoginComponent from './login/LoginComponent';
 
 export {
-  CompaniesComponent,
+  CompanyComponent,
   GridComponent,
   LoginComponent
 };

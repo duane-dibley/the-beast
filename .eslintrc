@@ -13,20 +13,11 @@
     "plugin:@typescript-eslint/recommended"
   ],
   "rules": {
+    "arrow-parens": 0,
     "block-spacing": 1,
     "comma-dangle": 0,
     // TODO -set for postcss, shouldn't be using
     "global-require": 0,
-    //
-    "import/extensions": 0,
-    "import/no-extraneous-dependencies": [
-      1,
-      {
-        "devDependencies": true
-      }
-    ],
-    "import/no-unresolved": 0,
-    "import/prefer-default-export": 0,
     "linebreak-style": 0,
     "max-len": 0,
     "new-cap": 0,
@@ -37,6 +28,19 @@
     "no-use-before-define": 0,
     "object-curly-newline": 0,
     "padded-blocks": 0,
+    // TODO - Not behaving for imports with relative file path .
+    // "sort-imports": 1,
+    // Import plugin
+    "import/extensions": 0,
+    "import/no-extraneous-dependencies": [
+      1,
+      {
+        "devDependencies": true
+      }
+    ],
+    "import/no-unresolved": 0,
+    "import/prefer-default-export": 0,
+    // React specific
     "react/jsx-filename-extension": [
       1,
       {
@@ -51,23 +55,11 @@
       1,
       "static public field"
     ],
-    // TODO - Not behaving for imports with relative file path .
-    // "sort-imports": 1,
-    //
+    // Typescript specific
     "@typescript-eslint/interface-name-prefix": 0,
     "@typescript-eslint/no-empty-interface": 1,
-    "@typescript-eslint/no-inferrable-types": 0,
     "@typescript-eslint/no-use-before-define": 0,
-    "@typescript-eslint/typedef": [
-      1,
-      {
-        // TODO - Not sure how to set types for const { a, b } = x
-        // "arrayDestructuring": true,
-        // "objectDestructuring": true,
-        "variableDeclaration": true
-      }
-    ],
-    // ESlint/Typescript conflicts to be resolved in later release
+    // ESlint/Typescript conflicts to be resolved in later release ?
     "no-unused-vars": "off",
     "@typescript-eslint/no-unused-vars": 1,
     "no-useless-constructor": "off",

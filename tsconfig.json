@@ -11,10 +11,13 @@
       "@components": ["src/common/components"],
       "@hoc": ["src/common/hoc"],
       "@routes": ["src/common/routes"],
+      "@sagas": ["src/common/sagas"],
       "@store": ["src/common/store"],
       "@styles": ["src/common/styles"]
     },
     "sourceMap": true,
+    // "strictNullChecks": true,
+    // "strictPropertyInitialization": true,
     "target": "es6",
   },
   "exclude": [

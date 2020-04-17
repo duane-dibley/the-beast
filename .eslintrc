@@ -50,6 +50,7 @@
       }
     ],
     "react/jsx-first-prop-new-line": 0,
+    "react/jsx-props-no-spreading": 0,
     "react/prefer-stateless-function": 1,
     "react/static-property-placement": [
       1,

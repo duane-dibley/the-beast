@@ -10,7 +10,7 @@ const context: IContext = { insertCss };
 
 function insertCss(...styles: IIsoStyle[]): () => void {
   const removeCss: void[] = styles.map((x: IIsoStyle) => x._insertCss());
-  return (): any => {
+  return (): void => {
     removeCss.forEach((f: any) => f());
   };
 }

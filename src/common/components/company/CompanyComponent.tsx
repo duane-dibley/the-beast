@@ -1,29 +1,53 @@
 import withStyles from 'isomorphic-style-loader/withStyles';
-import React, { Component, ReactNode } from 'react';
+import React, { ChangeEvent, ReactNode } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators, Dispatch, AnyAction } from 'redux';
-import Button from '@material-ui/core/Button';
+import { bindActionCreators, Dispatch } from 'redux';
+import { /* FilterOptionsState, */ RenderInputParams } from '@material-ui/lab';
+import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
 //
-import { search } from './companyActions';
+import { search } from '../../actions/companyActions';
 import Styles from './company.styl';
 
-function CompanyComponent(props: IProps): JSX.Element {
-  return (
-    // <TextField label-="Search" variant="outlined" />
-    <Button onClick={(): AnyAction => props.actions.search()}>Click</Button>
-  );
-}
+import { debounceAction } from '../../tools';
 
 // class CompanyComponent extends Component<IProps> {
 
 //   render(): ReactNode {
-//     const { actions } = this.props;
+//     const { actions, searchResults } = this.props;
 
-//     return <Button title="Click" onClick={() => actions.search()} />
+//     return (
+//       <div>
+//         <Autocomplete
+//           getOptionLabel={(option: ICompanySearchResult): string => option.title + option.address_snippet}
+//           getOptionSelected={(option: ICompanySearchResult, value: ICompanySearchResult): boolean => value.title === option.title}
+//           onInputChange={(evt: ChangeEvent, val: string): (args: object) => void => debounceAction(actions.search, 500, val)}
+//           options={searchResults}
+//           renderInput={(params: RenderInputParams): ReactNode => <TextField {...params} label="Combo box" variant="outlined" />}
+//         />
+//       </div>
+//     );
 //   }
 
 // }
+
+function CompanyComponent(props: IProps): ReactNode {
+  const { actions, searchResults } = props;
+
+  return (
+    <div>
+      <Autocomplete
+        filterOptions={(options: ICompanySearchResult[]): ICompanySearchResult[] => options}
+        getOptionLabel={(option: ICompanySearchResult): string => option.title}
+        getOptionSelected={(option: ICompanySearchResult, value: ICompanySearchResult): boolean => value.title === option.title}
+        onInputChange={(evt: ChangeEvent, val: string): void => debounceAction(actions.search, 500, val)}
+        options={searchResults}
+        renderInput={(params: RenderInputParams): ReactNode => <TextField {...params} label="Search" variant="outlined" />}
+      />
+    </div>
+  );
+
+}
 
 /* * * * * * * * * * Redux connect * * * * * * * * * */
 
@@ -32,14 +56,15 @@ function mapDispatchToProps(dispatch: Dispatch): IProps {
 }
 
 function mapStateToProps(store: IStore): IProps {
-  return { store };
+  const { company } = store;
+  return { searchResults: company.searchResults };
 }
 
 /* * * * * * * * * * Props interface * * * * * * * * * */
 
 interface IProps {
   actions?: { search: typeof search };
-  store?: IStore;
+  searchResults?: ICompanySearchResult[];
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(Styles)(CompanyComponent));

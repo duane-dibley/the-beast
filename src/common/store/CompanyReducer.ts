@@ -1,5 +1,5 @@
 import { AnyAction, Reducer } from 'redux';
-import { COMPANY_SEARCH_SUCCESS } from '@store';
+import { COMPANY_SEARCH_SUCCESS } from '@actions';
 
 const companyState: ICompanyState = {
   searchResults: []
@@ -9,8 +9,7 @@ const reducer: Reducer<ICompanyState, AnyAction> = (state: ICompanyState = compa
   switch (action.type) {
 
     case COMPANY_SEARCH_SUCCESS:
-      console.log('search results action', action);
-      return state;
+      return { ...state, searchResults: action.data };
 
     default:
       return state;

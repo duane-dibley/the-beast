@@ -12,7 +12,7 @@ interface IAppState {
 }
 
 interface ICompanyState {
-  searchResults: any[];
+  searchResults: ICompanySearchResult[];
 }
 
 interface IInitDataState {
@@ -21,10 +21,32 @@ interface IInitDataState {
 
 interface IStore {
   app?: IAppState;
+  company?: ICompanyState;
   initData?: IInitDataState;
 }
 
 /* * * * * * * * * * MISC * * * * * * * * * */
+interface ICompanySearchResult {
+  address: {
+    address_line_1: string;
+    country: string;
+    locality: string;
+    premises: string;
+  };
+  address_snippet: string;
+  appointment_count: number;
+  description: string;
+  description_identifiers: string[];
+  kind: string;
+  links: { self: string };
+  matches: {
+    snippet: string[];
+    title: number[];
+  };
+  snippet: string;
+  title: string;
+}
+
 interface IContext {
   insertCss(): void;
 }

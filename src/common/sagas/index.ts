@@ -1,5 +1,6 @@
+import { AnyAction } from 'redux';
 import { all, call, put, takeLatest } from 'redux-saga/effects';
-import { COMPANY_SEARCH, COMPANY_SEARCH_SUCCESS } from '@store';
+import { COMPANY_SEARCH, COMPANY_SEARCH_SUCCESS } from '@actions';
 import headers from './headers';
 
 function* search(): Generator {
@@ -11,15 +12,16 @@ function* search(): Generator {
 
 //
 
-function* searchCompanies(params: any): Generator {
-  return yield fetch('https://api.companieshouse.gov.uk/search?q=test', { headers })
+function* searchCompanies(val: string): Generator {
+  return yield fetch(`https://api.companieshouse.gov.uk/search?q=${val}`, { headers })
     .then(res => res.json())
     .catch(err => console.error('companiesSearch catch', err));
 }
 
 //
 
-function* companiesSearch(): Generator {
+function* companiesSearch(action: AnyAction): Generator {
+  const { val } = action;
   let response: any;
 
   try {
@@ -28,13 +30,12 @@ function* companiesSearch(): Generator {
     // GET https://api.companieshouse.gov.uk/search/officers
     // GET https://api.companieshouse.gov.uk/search/disqualified-officers
 
-    response = yield call(searchCompanies, { q: 'test' });
+    response = yield call(searchCompanies, val);
+
     yield put({ type: COMPANY_SEARCH_SUCCESS, data: response.items });
   } catch (e) {
     console.error('companies_fetch_failed');
   }
-
-  // yield put({ type: COMPANY_SEARCH_SUCCESS, data: response });
 }
 
 export default function* rootSaga(): Generator {

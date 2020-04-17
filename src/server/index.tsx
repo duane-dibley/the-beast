@@ -1,16 +1,14 @@
-import express, { Application, Request, Response /* , NextFunction */ } from 'express';
+import express, { Application, Request, Response } from 'express';
 import path from 'path';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
-// import { AnyAction, createStore, Store } from 'redux';
 // import serialize from 'serialize-javascript';
 //
 import { ServerStyleSheets } from '@material-ui/core/styles';
 //
-// import AppReducer from '@store';
+// import rootSaga from '@sagas';
+// import rootReducer from '@store';
 
-// import gridStyles from 'node_modules/react-grid-layout/css/styles.css';
-// import resizeStyles from 'node_modules/react-resizable/css/styles.css';
 
 // TODO - tidy with paths
 import App from '../common/app';

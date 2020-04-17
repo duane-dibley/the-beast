@@ -7,6 +7,7 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 const config: Configuration = {
   resolve: {
     alias: {
+      '@actions': path.resolve(__dirname, 'src/common/actions'),
       '@components': path.resolve(__dirname, 'src/common/components'),
       '@hoc': path.resolve(__dirname, 'src/common/hoc'),
       '@routes': path.resolve(__dirname, 'src/common/routes'),

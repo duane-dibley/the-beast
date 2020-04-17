@@ -17,7 +17,7 @@ import Typography from '@material-ui/core/Typography';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 //
 import Styles from './login.styl';
-import { loginClick } from './loginActions';
+import { loginClick } from '../../actions/loginActions';
 
 class LoginComponent extends Component<IProps, IState> {
 

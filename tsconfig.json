@@ -8,6 +8,7 @@
     "noImplicitAny": true,
     "outDir": "dist",
     "paths": {
+      "@actions": ["src/common/actions"],
       "@components": ["src/common/components"],
       "@hoc": ["src/common/hoc"],
       "@routes": ["src/common/routes"],

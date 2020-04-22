@@ -9,12 +9,13 @@
     "outDir": "dist",
     "paths": {
       "@actions": ["src/common/actions"],
-      "@components": ["src/common/components"],
       "@hoc": ["src/common/hoc"],
       "@routes": ["src/common/routes"],
       "@sagas": ["src/common/sagas"],
       "@store": ["src/common/store"],
-      "@styles": ["src/common/styles"]
+      "@styles": ["src/common/styles"],
+      "@tools": ["src/common/tools"],
+      "@views": ["src/common/views"]
     },
     "sourceMap": true,
     // "strictNullChecks": true,

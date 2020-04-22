@@ -8,12 +8,13 @@ const config: Configuration = {
   resolve: {
     alias: {
       '@actions': path.resolve(__dirname, 'src/common/actions'),
-      '@components': path.resolve(__dirname, 'src/common/components'),
       '@hoc': path.resolve(__dirname, 'src/common/hoc'),
       '@routes': path.resolve(__dirname, 'src/common/routes'),
       '@sagas': path.resolve(__dirname, 'src/common/sagas'),
       '@store': path.resolve(__dirname, 'src/common/store'),
-      '@styles': path.resolve(__dirname, 'src/common/styles')
+      '@styles': path.resolve(__dirname, 'src/common/styles'),
+      '@tools': path.resolve(__dirname, 'src/common/tools'),
+      '@views': path.resolve(__dirname, 'src/common/views'),
     },
     extensions: ['.css', '.js', '.scss', '.styl', '.ts', '.tsx']
   }

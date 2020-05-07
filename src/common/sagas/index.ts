@@ -1,7 +1,29 @@
 import { AnyAction } from 'redux';
 import { all, call, put, takeLatest } from 'redux-saga/effects';
-import { COMPANY_SEARCH, COMPANY_SEARCH_SUCCESS } from '@actions';
+import {
+  COMPANY_PROFILE,
+  COMPANY_PROFILE_SUCCESS,
+  COMPANY_SEARCH,
+  COMPANY_SEARCH_SUCCESS,
+  OFFICER_APPOINTMENTS,
+  OFFICER_APPOINTMENTS_SUCCESS,
+  SAGA_FETCH_ERROR_HANDLER
+} from '@common/actions';
 import headers from './headers';
+
+function* appointments(): Generator {
+  yield takeLatest(
+    OFFICER_APPOINTMENTS,
+    officerAppointments
+  );
+}
+
+function* profile(): Generator {
+  yield takeLatest(
+    COMPANY_PROFILE,
+    companyProfile
+  );
+}
 
 function* search(): Generator {
   yield takeLatest(
@@ -11,6 +33,12 @@ function* search(): Generator {
 }
 
 //
+
+function* fetchAppointments(id: string): Generator {
+  return yield fetch(`https://api.companieshouse.gov.uk/officers/${id}/appointments`, { headers })
+    .then(res => res.json())
+    .catch(err => console.error('officerAppointments catch', err));
+}
 
 function* searchCompanies(val: string): Generator {
   return yield fetch(`https://api.companieshouse.gov.uk/search?q=${val}`, { headers })
@@ -38,8 +66,40 @@ function* companiesSearch(action: AnyAction): Generator {
   }
 }
 
+function* companyProfile(action: AnyAction): Generator {
+  const { id } = action;
+  let response: any;
+
+  try {
+    response = yield fetch(`https://api.companieshouse.gov.uk/company/${id}`, { headers })
+      .then(res => res.json());
+    // TODO - sort saga catch handler
+    // .catch(error => console.error('SAGA_CATCH_ERROR_HANDLER', error));
+    // .catch(error => yield put({ type: SAGA_CATCH_ERROR_HANDLER, error }));
+
+    yield put({ type: COMPANY_PROFILE_SUCCESS, data: response });
+  } catch (e) {
+    yield put({ type: SAGA_FETCH_ERROR_HANDLER, action, response });
+  }
+}
+
+function* officerAppointments(action: AnyAction): Generator {
+  const { id } = action;
+  let response: any;
+
+  try {
+    response = yield call(fetchAppointments, id);
+
+    yield put({ type: OFFICER_APPOINTMENTS_SUCCESS, data: response.items });
+  } catch (e) {
+    console.error('companies_fetch_failed');
+  }
+}
+
 export default function* rootSaga(): Generator {
   yield all([
+    appointments(),
+    profile(),
     search()
   ]);
 }

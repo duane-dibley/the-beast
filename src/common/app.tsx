@@ -2,10 +2,10 @@ import StyleContext from 'isomorphic-style-loader/StyleContext';
 import React from 'react';
 import { AnyAction, applyMiddleware, createStore, Store } from 'redux';
 import createSagaMiddleware from 'redux-saga';
-import { BrowserRouterHoc, ContextProvidorHoc, StaticRouterHoc, StoreProviderHoc, ThemeProviderHoc } from '@hoc';
-import AppRoutes from '@routes';
-import rootSaga from '@sagas';
-import rootReducer from '@store';
+import { BrowserRouterHoc, ContextProvidorHoc, StaticRouterHoc, StoreProviderHoc, ThemeProviderHoc } from '@common/hoc';
+import AppRoutes from '@common/routes';
+import rootSaga from '@common/sagas';
+import rootReducer from '@common/store';
 
 const sagaMiddleware = createSagaMiddleware();
 

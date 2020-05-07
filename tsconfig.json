@@ -8,14 +8,9 @@
     "noImplicitAny": true,
     "outDir": "dist",
     "paths": {
-      "@actions": ["src/common/actions"],
-      "@hoc": ["src/common/hoc"],
-      "@routes": ["src/common/routes"],
-      "@sagas": ["src/common/sagas"],
-      "@store": ["src/common/store"],
-      "@styles": ["src/common/styles"],
-      "@tools": ["src/common/tools"],
-      "@views": ["src/common/views"]
+      // "@/*":["src/*"]
+      "@common/*": ["src/common/*"]
+      
     },
     "sourceMap": true,
     // "strictNullChecks": true,

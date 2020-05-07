@@ -1,6 +1,6 @@
 import React from 'react';
 import { StylesProvider, ThemeProvider } from '@material-ui/core/styles';
-import theme from '@styles';
+import theme from '@common/styles';
 
 export default function hoc(WrappedComponent: JSX.Element): JSX.Element {
   return (

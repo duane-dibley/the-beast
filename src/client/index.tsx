@@ -5,7 +5,6 @@ import { hydrate } from 'react-dom';
 // TODO - tidy with paths
 import App from '../common/app';
 
-
 const context: IContext = { insertCss };
 
 function insertCss(...styles: IIsoStyle[]): () => void {
@@ -27,7 +26,4 @@ function Main(): JSX.Element {
   return <App context={context} />;
 }
 
-hydrate(
-  <Main />,
-  document.getElementById('appdiv')
-);
+hydrate(<Main />, document.getElementById('appdiv'));

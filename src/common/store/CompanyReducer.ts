@@ -63,12 +63,11 @@ const companyState: ICompanyState = {
     type: '',
     undeliverable_registered_office_address: false,
   },
-  searchResults: []
+  searchResults: [],
 };
 
 const reducer: Reducer<ICompanyState, AnyAction> = (state: ICompanyState = companyState, action: AnyAction) => {
   switch (action.type) {
-
     case COMPANY_PROFILE_SUCCESS:
       return { ...state, companyProfile: action.data };
 
@@ -80,7 +79,6 @@ const reducer: Reducer<ICompanyState, AnyAction> = (state: ICompanyState = compa
 
     default:
       return state;
-
   }
 };
 

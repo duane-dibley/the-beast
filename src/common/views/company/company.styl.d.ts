@@ -1,7 +1,7 @@
 declare namespace CompanyStylModule {
   export interface ICompanyStyl {
-    "flex-grow-row": string;
-    "flex-row": string;
+    'flex-grow-row': string;
+    'flex-row': string;
   }
 }
 

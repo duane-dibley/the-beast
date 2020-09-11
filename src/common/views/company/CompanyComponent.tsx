@@ -11,7 +11,7 @@ import TextField from '@material-ui/core/TextField';
 import AccessibilityIcon from '@material-ui/icons/Accessibility';
 import BusinessCenterIcon from '@material-ui/icons/BusinessCenter';
 import PersonAddDisabledIcon from '@material-ui/icons/PersonAddDisabled';
-import { RenderInputParams } from '@material-ui/lab';
+import { AutocompleteRenderInputParams } from '@material-ui/lab';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 //
 import { appointments, profile, search } from '@common/actions/companyActions';
@@ -30,7 +30,6 @@ import { AppointmentsComponent, ProfilesComponent } from './components';
 // }));
 
 class CompanyComponent extends Component<IProps> {
-
   private searchQuery: string;
 
   render(): ReactNode {
@@ -41,11 +40,14 @@ class CompanyComponent extends Component<IProps> {
     return (
       <>
         <div className={Styles['flex-row']}>
-          <Autocomplete className={Styles['flex-grow-row']}
+          <Autocomplete
+            className={Styles['flex-grow-row']}
             debug
             filterOptions={(options: ICompanySearchResult[]): ICompanySearchResult[] => options}
             getOptionLabel={(option: ICompanySearchResult): string => option.title}
-            getOptionSelected={(option: ICompanySearchResult, value: ICompanySearchResult): boolean => value.title === option.title}
+            getOptionSelected={(option: ICompanySearchResult, value: ICompanySearchResult): boolean =>
+              value.title === option.title
+            }
             onChange={(event: ChangeEvent, item: ICompanySearchResult): AnyAction => {
               const self = item.links.self.split('/');
               const type = self[1];
@@ -61,7 +63,10 @@ class CompanyComponent extends Component<IProps> {
             }}
             onInputChange={(event: ChangeEvent, value: string): void => debounceAction(actions.search, 500, value)}
             options={searchResults}
-            renderInput={(params: RenderInputParams): ReactNode => <TextField {...params} label="Search" variant="outlined" />}
+            // renderInput={(params: AutocompleteRenderInputParams): ReactNode => <TextField {...params} label="Search" variant="outlined" />}
+            renderInput={(params: AutocompleteRenderInputParams): ReactNode => (
+              <TextField {...params} label="Search" variant="outlined" />
+            )}
             renderOption={(option: ICompanySearchResult): ReactNode => {
               let icon: ReactNode = '';
               switch (option.kind) {
@@ -85,12 +90,13 @@ class CompanyComponent extends Component<IProps> {
               );
             }}
           />
-          <FormControl /* className={classes.formControl} */
-            variant="outlined"
-          >
+          <FormControl /* className={classes.formControl} */ variant="outlined">
             <InputLabel>Type</InputLabel>
-            <Select defaultValue="/search"
-              onChange={(event: React.ChangeEvent<{ name?: string; value: string }>): string => this.searchQuery = event.target.value}
+            <Select
+              defaultValue="/search"
+              onChange={(event: React.ChangeEvent<{ name?: string; value: string }>): string =>
+                (this.searchQuery = event.target.value)
+              }
               label="Type"
             >
               <MenuItem value="/search">All</MenuItem>
@@ -104,11 +110,9 @@ class CompanyComponent extends Component<IProps> {
         <AppointmentsComponent appointmentList={appointmentList} />
 
         <ProfilesComponent />
-
       </>
     );
   }
-
 }
 
 /* * * * * * * * * * Redux connect * * * * * * * * * */
@@ -123,7 +127,7 @@ function mapStateToProps(store: IStore): IProps {
   return {
     appointmentList,
     companyProfile,
-    searchResults
+    searchResults,
   };
 }
 

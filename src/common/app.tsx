@@ -9,10 +9,7 @@ import rootReducer from '@common/store';
 
 const sagaMiddleware = createSagaMiddleware();
 
-const store: Store<IStore, AnyAction> = createStore(
-  rootReducer,
-  applyMiddleware(sagaMiddleware)
-);
+const store: Store<IStore, AnyAction> = createStore(rootReducer, applyMiddleware(sagaMiddleware));
 
 sagaMiddleware.run(rootSaga);
 
@@ -31,10 +28,10 @@ export default function app(props: IAppState): JSX.Element {
             </ContextProvidorHoc>
           </StyleContext.Provider>,
           url,
-          context
+          context,
         ),
-        store
-      )
+        store,
+      ),
     );
   }
 
@@ -46,9 +43,9 @@ export default function app(props: IAppState): JSX.Element {
           <ContextProvidorHoc context={context}>
             <AppRoutes />
           </ContextProvidorHoc>
-        </StyleContext.Provider>
+        </StyleContext.Provider>,
       ),
-      store
-    )
+      store,
+    ),
   );
 }

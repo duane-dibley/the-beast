@@ -7,10 +7,10 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 const config: Configuration = {
   resolve: {
     alias: {
-      '@common': path.resolve(__dirname, 'src/common/')
+      '@common': path.resolve(__dirname, 'src/common/'),
     },
-    extensions: ['.css', '.js', '.scss', '.styl', '.ts', '.tsx']
-  }
+    extensions: ['.css', '.js', '.scss', '.styl', '.ts', '.tsx'],
+  },
 };
 
 const client: Configuration = {
@@ -19,22 +19,22 @@ const client: Configuration = {
     client: [
       path.resolve(__dirname, 'src/client/index.tsx'),
       path.resolve(__dirname, 'node_modules/react-grid-layout/css/styles.css'),
-      path.resolve(__dirname, 'node_modules/react-resizable/css/styles.css')
-    ]
+      path.resolve(__dirname, 'node_modules/react-resizable/css/styles.css'),
+    ],
   },
   module: {
     rules: [
       {
         loader: [
           MiniCssExtractPlugin.loader, // instead of style-loader
-          'css-loader'
+          'css-loader',
         ],
-        test: /\.css$/
+        test: /\.css$/,
       },
       {
         exclude: /node_modules/,
         loader: 'ts-loader',
-        test: /\.tsx?$/
+        test: /\.tsx?$/,
       },
       {
         test: /\.scss$/,
@@ -43,19 +43,19 @@ const client: Configuration = {
           '@teamsupercell/typings-for-css-modules-loader',
           {
             loader: 'css-loader',
-            options: { modules: true, sourceMap: true }
+            options: { modules: true, sourceMap: true },
           },
           {
             loader: 'postcss-loader',
             options: {
-              plugins: [autoprefixer()]
-            }
+              plugins: [autoprefixer()],
+            },
           },
           {
             loader: 'sass-loader',
-            options: { sourceMap: true }
-          }
-        ]
+            options: { sourceMap: true },
+          },
+        ],
       },
       {
         test: /\.styl$/,
@@ -64,21 +64,21 @@ const client: Configuration = {
           '@teamsupercell/typings-for-css-modules-loader',
           {
             loader: 'css-loader',
-            options: { modules: true, sourceMap: true }
+            options: { modules: true, sourceMap: true },
           },
           {
             loader: 'postcss-loader',
             options: {
-              plugins: [autoprefixer()]
-            }
+              plugins: [autoprefixer()],
+            },
           },
           {
             loader: 'stylus-loader',
-            options: { sourceMap: true }
-          }
-        ]
-      }
-    ]
+            options: { sourceMap: true },
+          },
+        ],
+      },
+    ],
   },
   output: {
     chunkFilename: '[id].chunk.js',
@@ -91,16 +91,14 @@ const client: Configuration = {
       // Options similar to the same options in webpackOptions.output
       // both options are optional
       chunkFilename: '[id].css',
-      filename: '[name].bundle.css'
-    })
-  ]
+      filename: '[name].bundle.css',
+    }),
+  ],
 };
 
 const server: Configuration = {
   entry: {
-    server: [
-      path.resolve(__dirname, 'src/server/index.tsx'),
-    ]
+    server: [path.resolve(__dirname, 'src/server/index.tsx')],
   },
   externals: [webpackNodeExternals()],
   module: {
@@ -108,7 +106,7 @@ const server: Configuration = {
       {
         exclude: /node_modules/,
         loader: 'ts-loader',
-        test: /\.tsx?$/
+        test: /\.tsx?$/,
       },
       {
         test: /\.scss$/,
@@ -117,19 +115,19 @@ const server: Configuration = {
           '@teamsupercell/typings-for-css-modules-loader',
           {
             loader: 'css-loader',
-            options: { modules: true, sourceMap: true }
+            options: { modules: true, sourceMap: true },
           },
           {
             loader: 'postcss-loader',
             options: {
-              plugins: [autoprefixer()]
-            }
+              plugins: [autoprefixer()],
+            },
           },
           {
             loader: 'sass-loader',
-            options: { sourceMap: true }
-          }
-        ]
+            options: { sourceMap: true },
+          },
+        ],
       },
       {
         test: /\.styl$/,
@@ -138,21 +136,21 @@ const server: Configuration = {
           '@teamsupercell/typings-for-css-modules-loader',
           {
             loader: 'css-loader',
-            options: { modules: true, sourceMap: true }
+            options: { modules: true, sourceMap: true },
           },
           {
             loader: 'postcss-loader',
             options: {
-              plugins: [autoprefixer()]
-            }
+              plugins: [autoprefixer()],
+            },
           },
           {
             loader: 'stylus-loader',
-            options: { sourceMap: true }
-          }
-        ]
-      }
-    ]
+            options: { sourceMap: true },
+          },
+        ],
+      },
+    ],
   },
   node: {
     __dirname: false,
@@ -164,10 +162,10 @@ const server: Configuration = {
     path: path.resolve(__dirname, 'dist'),
     sourceMapFilename: '[name].map.js',
   },
-  target: 'node'
+  target: 'node',
 };
 
 export default [
   { ...config, ...server },
-  { ...config, ...client }
+  { ...config, ...client },
 ];

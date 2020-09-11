@@ -7,8 +7,6 @@ import Avatar from '@material-ui/core/Avatar';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Checkbox from '@material-ui/core/Checkbox';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Container from '@material-ui/core/Container';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Grid from '@material-ui/core/Grid';
 import Link from '@material-ui/core/Link';
@@ -20,7 +18,6 @@ import { loginClick } from '@common/actions/loginActions';
 import Styles from './login.styl';
 
 class LoginComponent extends Component<IProps, IState> {
-
   private handleChange: (evt: ChangeEvent) => void;
 
   constructor(props: IProps) {
@@ -31,7 +28,7 @@ class LoginComponent extends Component<IProps, IState> {
     this.state = {
       email: '',
       password: '',
-      remember: ''
+      remember: '',
     };
   }
 
@@ -46,10 +43,9 @@ class LoginComponent extends Component<IProps, IState> {
     const { actions } = this.props;
 
     return (
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
+      <>
         {/* <div className={Styles.paper}> */}
-        <div>
+        <>
           <Avatar className={Styles.avatar}>
             <LockOutlinedIcon />
           </Avatar>
@@ -83,13 +79,14 @@ class LoginComponent extends Component<IProps, IState> {
               onChange={(evt: ChangeEvent<HTMLInputElement>): void => this.handleChange(evt)}
             />
             <FormControlLabel
-              control={(
-                <Checkbox name="remember"
+              control={
+                <Checkbox
+                  name="remember"
                   value="remember"
                   color="primary"
                   onChange={(evt: ChangeEvent<HTMLInputElement>): void => this.handleChange(evt)}
                 />
-              )}
+              }
               label="Remember me"
             />
             <Button
@@ -97,7 +94,7 @@ class LoginComponent extends Component<IProps, IState> {
               fullWidth
               variant="contained"
               color="primary"
-            // className={Styles.submit}
+              // className={Styles.submit}
             >
               Sign In
             </Button>
@@ -114,11 +111,11 @@ class LoginComponent extends Component<IProps, IState> {
               </Grid>
             </Grid>
           </form>
-        </div>
+        </>
         <Box mt={8}>
           <Copyright />
         </Box>
-      </Container>
+      </>
     );
   }
 }
@@ -131,10 +128,8 @@ function Copyright(): JSX.Element {
       {'Copyright © '}
       <Link color="inherit" href="https://material-ui.com/">
         Your Website
-      </Link>
-      {' '}
-      {new Date().getFullYear()}
-      .
+      </Link>{' '}
+      {new Date().getFullYear()}.
     </Typography>
   );
 }

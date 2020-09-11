@@ -7,43 +7,34 @@ import {
   COMPANY_SEARCH_SUCCESS,
   OFFICER_APPOINTMENTS,
   OFFICER_APPOINTMENTS_SUCCESS,
-  SAGA_FETCH_ERROR_HANDLER
+  SAGA_FETCH_ERROR_HANDLER,
 } from '@common/actions';
 import headers from './headers';
 
 function* appointments(): Generator {
-  yield takeLatest(
-    OFFICER_APPOINTMENTS,
-    officerAppointments
-  );
+  yield takeLatest(OFFICER_APPOINTMENTS, officerAppointments);
 }
 
 function* profile(): Generator {
-  yield takeLatest(
-    COMPANY_PROFILE,
-    companyProfile
-  );
+  yield takeLatest(COMPANY_PROFILE, companyProfile);
 }
 
 function* search(): Generator {
-  yield takeLatest(
-    COMPANY_SEARCH,
-    companiesSearch
-  );
+  yield takeLatest(COMPANY_SEARCH, companiesSearch);
 }
 
 //
 
 function* fetchAppointments(id: string): Generator {
   return yield fetch(`https://api.companieshouse.gov.uk/officers/${id}/appointments`, { headers })
-    .then(res => res.json())
-    .catch(err => console.error('officerAppointments catch', err));
+    .then((res) => res.json())
+    .catch((err) => console.error('officerAppointments catch', err));
 }
 
 function* searchCompanies(val: string): Generator {
   return yield fetch(`https://api.companieshouse.gov.uk/search?q=${val}`, { headers })
-    .then(res => res.json())
-    .catch(err => console.error('companiesSearch catch', err));
+    .then((res) => res.json())
+    .catch((err) => console.error('companiesSearch catch', err));
 }
 
 //
@@ -71,8 +62,7 @@ function* companyProfile(action: AnyAction): Generator {
   let response: any;
 
   try {
-    response = yield fetch(`https://api.companieshouse.gov.uk/company/${id}`, { headers })
-      .then(res => res.json());
+    response = yield fetch(`https://api.companieshouse.gov.uk/company/${id}`, { headers }).then((res) => res.json());
     // TODO - sort saga catch handler
     // .catch(error => console.error('SAGA_CATCH_ERROR_HANDLER', error));
     // .catch(error => yield put({ type: SAGA_CATCH_ERROR_HANDLER, error }));
@@ -97,11 +87,7 @@ function* officerAppointments(action: AnyAction): Generator {
 }
 
 export default function* rootSaga(): Generator {
-  yield all([
-    appointments(),
-    profile(),
-    search()
-  ]);
+  yield all([appointments(), profile(), search()]);
 }
 
 // https://hackernoon.com/moving-api-requests-to-redux-saga-21780f49cbc8 - BASIC

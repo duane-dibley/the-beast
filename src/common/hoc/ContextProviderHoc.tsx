@@ -3,7 +3,7 @@ import React, { ReactNode } from 'react';
 
 export default class ContextProviderHoc extends React.Component<{ context: IContext }> {
   static childContextTypes: { insertCss: Requireable<(...args: void[]) => void> } = {
-    insertCss: PropTypes.func
+    insertCss: PropTypes.func,
   };
 
   getChildContext(): IContext {

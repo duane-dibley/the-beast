@@ -9,7 +9,6 @@ import { ServerStyleSheets } from '@material-ui/core/styles';
 // import rootSaga from '@sagas';
 // import rootReducer from '@store';
 
-
 // TODO - tidy with paths
 import App from '../common/app';
 
@@ -29,29 +28,45 @@ app.listen(8000, () => console.log('server running on port 8000'));
 // default route
 app.get('/', (req: Request, res: Response) => {
   // TODO - introduce login/auth/smal logic
-  res.redirect('/editor');
+  res.redirect('/gecko');
 });
 
 // editor application route
-app.get('/editor', (req: Request, res: Response) => {
+app.get('/company', (req: Request, res: Response) => {
   const { url } = req;
-  res.end(htmlTemplate(
-    renderToString(route(url)),
-    sheets.toString(),
-    // store.getState(),
-    // css
-  ));
+  res.end(
+    htmlTemplate(
+      renderToString(route(url)),
+      sheets.toString(),
+      // store.getState(),
+      // css
+    ),
+  );
+});
+
+app.get('/gecko', (req: Request, res: Response) => {
+  const { url } = req;
+  res.end(
+    htmlTemplate(
+      renderToString(route(url)),
+      sheets.toString(),
+      // store.getState(),
+      // css
+    ),
+  );
 });
 
 // login page route
 app.get('/login', (req: Request, res: Response) => {
   const { url } = req;
-  res.send(htmlTemplate(
-    renderToString(route(url)),
-    sheets.toString(),
-    // store.getState(),
-    // css
-  ));
+  res.send(
+    htmlTemplate(
+      renderToString(route(url)),
+      sheets.toString(),
+      // store.getState(),
+      // css
+    ),
+  );
 });
 
 /* * * * * * * * * * Workflow * * * * * * * * * */
@@ -71,7 +86,7 @@ function insertCss(...styles: IIsoStyle[]): void {
 
 /* * * * * * * * * * Tools * * * * * * * * * */
 
-function htmlTemplate(el: string, theme: string, /* initState: IStore, css: Set<string> */): string {
+function htmlTemplate(el: string, theme: string /* initState: IStore, css: Set<string> */): string {
   // <script>
   //   window.INIT_DATA = ${serialize(initState, { isJSON: true })}
   // </script>

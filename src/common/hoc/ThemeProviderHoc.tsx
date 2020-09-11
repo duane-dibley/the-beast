@@ -5,9 +5,7 @@ import theme from '@common/styles';
 export default function hoc(WrappedComponent: JSX.Element): JSX.Element {
   return (
     <StylesProvider injectFirst>
-      <ThemeProvider theme={theme}>
-        {WrappedComponent}
-      </ThemeProvider>
+      <ThemeProvider theme={theme}>{WrappedComponent}</ThemeProvider>
     </StylesProvider>
   );
 }

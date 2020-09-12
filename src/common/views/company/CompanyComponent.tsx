@@ -48,7 +48,7 @@ class CompanyComponent extends Component<IProps> {
             getOptionSelected={(option: ICompanySearchResult, value: ICompanySearchResult): boolean =>
               value.title === option.title
             }
-            onChange={(event: ChangeEvent, item: ICompanySearchResult): AnyAction => {
+            onChange={(event, item: ICompanySearchResult): AnyAction => {
               const self = item.links.self.split('/');
               const type = self[1];
               const id = self[2];
@@ -61,7 +61,7 @@ class CompanyComponent extends Component<IProps> {
                   return { type: 'ERROR' };
               }
             }}
-            onInputChange={(event: ChangeEvent, value: string): void => debounceAction(actions.search, 500, value)}
+            onInputChange={(event, value): void => debounceAction(actions.search, 500, value)}
             options={searchResults}
             // renderInput={(params: AutocompleteRenderInputParams): ReactNode => <TextField {...params} label="Search" variant="outlined" />}
             renderInput={(params: AutocompleteRenderInputParams): ReactNode => (

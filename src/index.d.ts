@@ -17,6 +17,14 @@ interface ICompanyState {
   searchResults: ICompanySearchResult[];
 }
 
+interface IGeckoState {
+  coinsList: {
+    id: string;
+    name: string;
+    symbol: string;
+  }[];
+}
+
 interface IInitDataState {
   message: string;
 }
@@ -24,6 +32,7 @@ interface IInitDataState {
 interface IStore {
   app?: IAppState;
   company?: ICompanyState;
+  gecko?: IGeckoState;
   initData?: IInitDataState;
 }
 

@@ -10,6 +10,7 @@ import {
   SAGA_FETCH_ERROR_HANDLER,
 } from '@common/actions';
 import headers from './headers';
+import { geckoCoinsList } from './gecksSagas';
 
 function* appointments(): Generator {
   yield takeLatest(OFFICER_APPOINTMENTS, officerAppointments);
@@ -87,7 +88,14 @@ function* officerAppointments(action: AnyAction): Generator {
 }
 
 export default function* rootSaga(): Generator {
-  yield all([appointments(), profile(), search()]);
+  yield all([
+    // company
+    appointments(),
+    profile(),
+    search(),
+    // gecko
+    geckoCoinsList(),
+  ]);
 }
 
 // https://hackernoon.com/moving-api-requests-to-redux-saga-21780f49cbc8 - BASIC

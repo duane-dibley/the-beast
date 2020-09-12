@@ -1,12 +1,12 @@
-declare namespace LoginStylModule {
+declare namespace LoginStylNamespace {
   export interface ILoginStyl {
     avatar: string;
   }
 }
 
-declare const LoginStylModule: LoginStylModule.ILoginStyl & {
+declare const LoginStylModule: LoginStylNamespace.ILoginStyl & {
   /** WARNING: Only available when `css-loader` is used without `style-loader` or `mini-css-extract-plugin` */
-  locals: LoginStylModule.ILoginStyl;
+  locals: LoginStylNamespace.ILoginStyl;
 };
 
 export = LoginStylModule;

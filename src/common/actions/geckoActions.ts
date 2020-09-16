@@ -1,6 +1,6 @@
 import { AnyAction } from 'redux';
-import { GECKO_COINS_LIST } from '@common/actions';
+import { GECKO_COINS_INIT } from '@common/actions';
 
-export function geckoCoinsList(): AnyAction {
-  return { type: GECKO_COINS_LIST };
+export function geckoCoinsInit(): AnyAction {
+  return { type: GECKO_COINS_INIT };
 }

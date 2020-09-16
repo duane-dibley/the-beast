@@ -23,6 +23,7 @@ interface IGeckoState {
     name: string;
     symbol: string;
   }[];
+  currencyList: string[];
 }
 
 interface IInitDataState {
@@ -37,6 +38,12 @@ interface IStore {
 }
 
 /* * * * * * * * * * MISC * * * * * * * * * */
+interface ICoin {
+  id: string;
+  name: string;
+  symbol: string;
+}
+
 interface ICompanyProfile {
   accounts: {
     accounting_reference_date: {

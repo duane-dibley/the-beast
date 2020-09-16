@@ -3,15 +3,11 @@ import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch, AnyAction } from 'redux';
 //
 import FormControl from '@material-ui/core/FormControl';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
 import TextField from '@material-ui/core/TextField';
 import { createStyles, StyleRules, Theme, withStyles, WithStyles } from '@material-ui/core/styles';
 import Autocomplete, { AutocompleteRenderInputParams } from '@material-ui/lab/Autocomplete';
 //
-import { geckoCoinsList } from '@common/actions/geckoActions';
+import { geckoCoinsInit } from '@common/actions/geckoActions';
 
 class GeckoComponent extends Component<IProps> {
   render(): JSX.Element | string {
@@ -20,20 +16,20 @@ class GeckoComponent extends Component<IProps> {
         <FormControl className={this.props.classes.formControl}>
           <Autocomplete
             options={this.props.coinsList}
-            getOptionLabel={(option: ICoin): string => option.symbol}
+            getOptionLabel={(option: ICoin): string => option.id}
             style={{ width: '100%' }}
             renderInput={(params: AutocompleteRenderInputParams): ReactNode => (
-              <TextField {...params} label="Sym 1" variant="outlined" />
+              <TextField {...params} label="Coin" variant="outlined" />
             )}
           />
         </FormControl>
         <FormControl className={this.props.classes.formControl}>
           <Autocomplete
-            options={this.props.coinsList}
-            getOptionLabel={(option: ICoin): string => option.symbol}
+            options={this.props.currencyList}
+            getOptionLabel={(option: string): string => option}
             style={{ width: '100%' }}
             renderInput={(params: AutocompleteRenderInputParams): ReactNode => (
-              <TextField {...params} label="Sym 2" variant="outlined" />
+              <TextField {...params} label="Currency " variant="outlined" />
             )}
           />
         </FormControl>
@@ -45,19 +41,19 @@ class GeckoComponent extends Component<IProps> {
 
   componentDidMount(): void {
     if (!this.props.coinsList.length) {
-      this.props.geckoCoinsList();
+      this.props.geckoCoinsInit();
     }
   }
 }
 
 function mapDispatchToProps(dispatch: Dispatch): IActions {
-  return bindActionCreators({ geckoCoinsList }, dispatch);
+  return bindActionCreators({ geckoCoinsInit }, dispatch);
 }
 
-function mapStateToProps(store: IStore): IState {
+function mapStateToProps(store: IStore): IGeckoState {
   const { gecko } = store;
-  const { coinsList } = gecko;
-  return { coinsList };
+  const { coinsList, currencyList } = gecko;
+  return { coinsList, currencyList };
 }
 
 function styles(theme: Theme): StyleRules {
@@ -74,17 +70,7 @@ function styles(theme: Theme): StyleRules {
 }
 
 interface IActions {
-  geckoCoinsList: () => AnyAction;
-}
-
-interface ICoin {
-  id: string;
-  name: string;
-  symbol: string;
-}
-
-interface IState {
-  coinsList: ICoin[];
+  geckoCoinsInit: () => AnyAction;
 }
 
 // TODO -add type check to css modules
@@ -93,6 +79,6 @@ interface IState {
 //   selectEmpty: string;
 // }
 
-type IProps = IActions & IState & WithStyles<typeof styles>;
+type IProps = IActions & IGeckoState & WithStyles<typeof styles>;
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(GeckoComponent));

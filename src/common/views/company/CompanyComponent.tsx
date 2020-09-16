@@ -83,10 +83,10 @@ class CompanyComponent extends Component<IProps> {
                   icon = '';
               }
               return (
-                <div>
+                <>
                   {icon}
                   {`${option.title} ${option.address_snippet}`}
-                </div>
+                </>
               );
             }}
           />

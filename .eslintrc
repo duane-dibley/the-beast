@@ -30,6 +30,7 @@
     "no-use-before-define": 0,
     "object-curly-newline": 0,
     "padded-blocks": 0,
+    "prefer-destructuring": 1,
     // TODO - Not behaving for imports with relative file path .
     // "sort-imports": 1,
     // Import plugin

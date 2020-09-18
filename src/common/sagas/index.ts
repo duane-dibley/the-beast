@@ -10,7 +10,7 @@ import {
   SAGA_FETCH_ERROR_HANDLER,
 } from '@common/actions';
 import headers from './headers';
-import { geckoCoinsInit } from './geckoSagas';
+import { geckoCoinData, geckoCoinsInit } from './geckoSagas';
 
 function* appointments(): Generator {
   yield takeLatest(OFFICER_APPOINTMENTS, officerAppointments);
@@ -94,6 +94,7 @@ export default function* rootSaga(): Generator {
     profile(),
     search(),
     // gecko
+    geckoCoinData(),
     geckoCoinsInit(),
   ]);
 }

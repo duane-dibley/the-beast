@@ -7,7 +7,7 @@ import TextField from '@material-ui/core/TextField';
 import { createStyles, StyleRules, Theme, withStyles, WithStyles } from '@material-ui/core/styles';
 import Autocomplete, { AutocompleteRenderInputParams } from '@material-ui/lab/Autocomplete';
 //
-import { geckoCoinsInit } from '@common/actions/geckoActions';
+import { geckoCoinData, geckoCoinsInit } from '@common/actions/geckoActions';
 
 class GeckoComponent extends Component<IProps> {
   render(): JSX.Element | string {
@@ -15,15 +15,17 @@ class GeckoComponent extends Component<IProps> {
       <>
         <FormControl className={this.props.classes.formControl}>
           <Autocomplete
+            getOptionLabel={(option: ICoin): string => option.name}
             options={this.props.coinsList}
-            getOptionLabel={(option: ICoin): string => option.id}
-            style={{ width: '100%' }}
+            onChange={(event, item: ICoin): AnyAction => this.props.geckoCoinData(item.id)}
             renderInput={(params: AutocompleteRenderInputParams): ReactNode => (
               <TextField {...params} label="Coin" variant="outlined" />
             )}
+            style={{ width: '100%' }}
           />
         </FormControl>
-        <FormControl className={this.props.classes.formControl}>
+        {/*  */}
+        {/* <FormControl className={this.props.classes.formControl}>
           <Autocomplete
             options={this.props.currencyList}
             getOptionLabel={(option: string): string => option}
@@ -32,7 +34,7 @@ class GeckoComponent extends Component<IProps> {
               <TextField {...params} label="Currency " variant="outlined" />
             )}
           />
-        </FormControl>
+        </FormControl> */}
       </>
     ) : (
       '...loading'
@@ -47,21 +49,22 @@ class GeckoComponent extends Component<IProps> {
 }
 
 function mapDispatchToProps(dispatch: Dispatch): IActions {
-  return bindActionCreators({ geckoCoinsInit }, dispatch);
+  return bindActionCreators({ geckoCoinData, geckoCoinsInit }, dispatch);
 }
 
 function mapStateToProps(store: IStore): IGeckoState {
   const { gecko } = store;
-  const { coinsList, currencyList } = gecko;
-  return { coinsList, currencyList };
+  const { coinData, coinsList, currencyList } = gecko;
+  return { coinData, coinsList, currencyList };
 }
 
 function styles(theme: Theme): StyleRules {
   return createStyles({
     formControl: {
-      // margin: theme.spacing(1),
-      padding: '10px',
-      width: '50%',
+      margin: theme.spacing(1),
+      minWidth: '300px',
+      // padding: '10px',
+      // width: '50%',
     },
     selectEmpty: {
       marginTop: theme.spacing(2),
@@ -70,6 +73,7 @@ function styles(theme: Theme): StyleRules {
 }
 
 interface IActions {
+  geckoCoinData: (id: string) => AnyAction;
   geckoCoinsInit: () => AnyAction;
 }
 

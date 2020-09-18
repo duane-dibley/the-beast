@@ -18,6 +18,7 @@ interface ICompanyState {
 }
 
 interface IGeckoState {
+  coinData: any;
   coinsList: {
     id: string;
     name: string;

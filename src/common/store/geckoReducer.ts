@@ -10,7 +10,7 @@ const initState: IGeckoState = {
 const reducer: Reducer<IGeckoState, AnyAction> = (state: IGeckoState = initState, action: AnyAction) => {
   switch (action.type) {
     case GECKO_COIN_DATA_SUCCESS:
-      return { ...state, coinDatat: action.data };
+      return { ...state, coinData: action.data };
     case GECKO_COINS_INIT_SUCCESS:
       return { ...state, coinsList: action.coinsList, currencyList: action.currencyList };
     default:

@@ -5,8 +5,8 @@ import {
   COMPANY_PROFILE_SUCCESS,
   COMPANY_SEARCH,
   COMPANY_SEARCH_SUCCESS,
-  OFFICER_APPOINTMENTS,
-  OFFICER_APPOINTMENTS_SUCCESS,
+  COMPANY_OFFICER_APPOINTMENTS,
+  COMPANY_OFFICER_APPOINTMENTS_SUCCESS,
   SAGA_FETCH_ERROR_HANDLER,
 } from '@common/actions';
 import headers from './headers';
@@ -66,7 +66,7 @@ function* officerAppointments(action: AnyAction): Generator {
   try {
     response = yield call(fetchAppointments, id);
 
-    yield put({ type: OFFICER_APPOINTMENTS_SUCCESS, data: response.items });
+    yield put({ type: COMPANY_OFFICER_APPOINTMENTS_SUCCESS, data: response.items });
   } catch (e) {
     console.error('companies_fetch_failed');
   }
@@ -74,7 +74,7 @@ function* officerAppointments(action: AnyAction): Generator {
 
 //
 export function* appointments(): Generator {
-  yield takeLatest(OFFICER_APPOINTMENTS, officerAppointments);
+  yield takeLatest(COMPANY_OFFICER_APPOINTMENTS, officerAppointments);
 }
 
 export function* profile(): Generator {

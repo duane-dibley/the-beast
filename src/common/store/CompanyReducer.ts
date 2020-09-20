@@ -1,5 +1,5 @@
 import { AnyAction, Reducer } from 'redux';
-import { COMPANY_PROFILE_SUCCESS, COMPANY_SEARCH_SUCCESS, OFFICER_APPOINTMENTS_SUCCESS } from '@common/actions';
+import { COMPANY_PROFILE_SUCCESS, COMPANY_SEARCH_SUCCESS, COMPANY_OFFICER_APPOINTMENTS_SUCCESS } from '@common/actions';
 
 const companyState: ICompanyState = {
   appointmentList: [],
@@ -68,14 +68,14 @@ const companyState: ICompanyState = {
 
 const reducer: Reducer<ICompanyState, AnyAction> = (state: ICompanyState = companyState, action: AnyAction) => {
   switch (action.type) {
+    case COMPANY_OFFICER_APPOINTMENTS_SUCCESS:
+      return { ...state, appointmentList: action.data };
+
     case COMPANY_PROFILE_SUCCESS:
       return { ...state, companyProfile: action.data };
 
     case COMPANY_SEARCH_SUCCESS:
       return { ...state, searchResults: action.data };
-
-    case OFFICER_APPOINTMENTS_SUCCESS:
-      return { ...state, appointmentList: action.data };
 
     default:
       return state;

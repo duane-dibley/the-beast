@@ -44,6 +44,7 @@ function* coinsInit(): Generator {
   }
 }
 
+//
 export function* geckoCoinData(): Generator {
   yield takeLatest(GECKO_COIN_DATA, coinData);
 }

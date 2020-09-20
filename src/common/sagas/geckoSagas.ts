@@ -2,12 +2,23 @@ import { AnyAction } from 'redux';
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { GECKO_COIN_DATA, GECKO_COIN_DATA_SUCCESS, GECKO_COINS_INIT, GECKO_COINS_INIT_SUCCESS } from '@common/actions';
 
-export function* geckoCoinData(): Generator {
-  yield takeLatest(GECKO_COIN_DATA, coinData);
+//
+function* fetchCoinData(id: string): Generator {
+  return yield fetch(`https://api.coingecko.com/api/v3/coins/${id}`)
+    .then((res) => res.json())
+    .catch((err) => console.error('fetchCoinsList catch', err));
 }
 
-export function* geckoCoinsInit(): Generator {
-  yield takeLatest(GECKO_COINS_INIT, coinsInit);
+function* fetchCoinsList(): Generator {
+  return yield fetch(`https://api.coingecko.com/api/v3/coins/list`)
+    .then((res) => res.json())
+    .catch((err) => console.error('fetchCoinsList catch', err));
+}
+
+function* fetchCurrencyList(): Generator {
+  return yield fetch(`https://api.coingecko.com/api/v3/simple/supported_vs_currencies`)
+    .then((res) => res.json())
+    .catch((err) => console.error('fetchCurrencyList catch', err));
 }
 
 //
@@ -33,21 +44,10 @@ function* coinsInit(): Generator {
   }
 }
 
-//
-function* fetchCoinData(id: string): Generator {
-  return yield fetch(`https://api.coingecko.com/api/v3/coins/${id}`)
-    .then((res) => res.json())
-    .catch((err) => console.error('fetchCoinsList catch', err));
+export function* geckoCoinData(): Generator {
+  yield takeLatest(GECKO_COIN_DATA, coinData);
 }
 
-function* fetchCoinsList(): Generator {
-  return yield fetch(`https://api.coingecko.com/api/v3/coins/list`)
-    .then((res) => res.json())
-    .catch((err) => console.error('fetchCoinsList catch', err));
-}
-
-function* fetchCurrencyList(): Generator {
-  return yield fetch(`https://api.coingecko.com/api/v3/simple/supported_vs_currencies`)
-    .then((res) => res.json())
-    .catch((err) => console.error('fetchCurrencyList catch', err));
+export function* geckoCoinsInit(): Generator {
+  yield takeLatest(GECKO_COINS_INIT, coinsInit);
 }

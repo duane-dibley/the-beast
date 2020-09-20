@@ -8,22 +8,25 @@ import { createStyles, StyleRules, Theme, withStyles, WithStyles } from '@materi
 import Autocomplete, { AutocompleteRenderInputParams } from '@material-ui/lab/Autocomplete';
 //
 import { geckoCoinData, geckoCoinsInit } from '@common/actions/geckoActions';
+import DataComponent from './components/DataComponent';
 
 class GeckoComponent extends Component<IProps> {
   render(): JSX.Element | string {
-    return this.props.coinsList.length ? (
+    const { geckoCoinData, classes, coinsList } = this.props;
+    return coinsList.length ? (
       <>
-        <FormControl className={this.props.classes.formControl}>
+        <FormControl className={classes.formControl}>
           <Autocomplete
             getOptionLabel={(option: ICoin): string => option.name}
-            options={this.props.coinsList}
-            onChange={(event, item: ICoin): AnyAction => this.props.geckoCoinData(item.id)}
+            options={coinsList}
+            onChange={(event, item: ICoin): AnyAction => geckoCoinData(item.id)}
             renderInput={(params: AutocompleteRenderInputParams): ReactNode => (
               <TextField {...params} label="Coin" variant="outlined" />
             )}
             style={{ width: '100%' }}
           />
         </FormControl>
+        <DataComponent />
         {/*  */}
         {/* <FormControl className={this.props.classes.formControl}>
           <Autocomplete
@@ -42,8 +45,9 @@ class GeckoComponent extends Component<IProps> {
   }
 
   componentDidMount(): void {
-    if (!this.props.coinsList.length) {
-      this.props.geckoCoinsInit();
+    const { coinsList, geckoCoinsInit } = this.props;
+    if (!coinsList.length) {
+      geckoCoinsInit();
     }
   }
 }
@@ -64,7 +68,7 @@ function styles(theme: Theme): StyleRules {
       margin: theme.spacing(1),
       minWidth: '300px',
       // padding: '10px',
-      // width: '50%',
+      width: '100%',
     },
     selectEmpty: {
       marginTop: theme.spacing(2),

@@ -5,14 +5,14 @@ import { hydrate } from 'react-dom';
 // TODO - tidy with paths
 import App from '../common/app';
 
-const context: IContext = { insertCss };
-
 function insertCss(...styles: IIsoStyle[]): () => void {
   const removeCss: void[] = styles.map((x: IIsoStyle) => x._insertCss());
   return (): void => {
     removeCss.forEach((f: any) => f());
   };
 }
+
+const context: IContext = { insertCss };
 
 function Main(): JSX.Element {
   // Remove theme applied on server

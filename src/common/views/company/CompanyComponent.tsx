@@ -17,7 +17,8 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import { appointments, profile, search } from '@common/actions/companyActions';
 import { debounceAction } from '@common/tools';
 import Styles from './company.styl';
-import { AppointmentsComponent, ProfilesComponent } from './components';
+import AppointmentsComponent from './components/AppointmentsComponent';
+import ProfilesComponent from './components/ProfilesComponent';
 
 // const useStyles = makeStyles((theme) => ({
 //   formControl: {

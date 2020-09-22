@@ -17,15 +17,15 @@ interface ICompanyState {
   searchResults: ICompanySearchResult[];
 }
 
-interface IGeckoState {
-  coinData: any;
-  coinsList: {
-    id: string;
-    name: string;
-    symbol: string;
-  }[];
-  currencyList: string[];
-}
+// interface IGeckoState {
+//   coinData: any;
+//   coinsList: {
+//     id: string;
+//     name: string;
+//     symbol: string;
+//   }[];
+//   currencyList: string[];
+// }
 
 interface IInitDataState {
   message: string;

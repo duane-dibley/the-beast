@@ -48,7 +48,9 @@ const client: Configuration = {
           {
             loader: 'postcss-loader',
             options: {
-              plugins: [autoprefixer()],
+              postcssOptions: {
+                plugins: [autoprefixer()],
+              },
             },
           },
           {
@@ -69,7 +71,9 @@ const client: Configuration = {
           {
             loader: 'postcss-loader',
             options: {
-              plugins: [autoprefixer()],
+              postcssOptions: {
+                plugins: [autoprefixer()],
+              },
             },
           },
           {
@@ -120,7 +124,9 @@ const server: Configuration = {
           {
             loader: 'postcss-loader',
             options: {
-              plugins: [autoprefixer()],
+              postcssOptions: {
+                plugins: [autoprefixer()],
+              },
             },
           },
           {
@@ -141,7 +147,9 @@ const server: Configuration = {
           {
             loader: 'postcss-loader',
             options: {
-              plugins: [autoprefixer()],
+              postcssOptions: {
+                plugins: [autoprefixer()],
+              },
             },
           },
           {

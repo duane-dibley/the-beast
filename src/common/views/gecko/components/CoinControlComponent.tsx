@@ -5,7 +5,7 @@ import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
 import { createStyles, StyleRules, Theme, withStyles, WithStyles } from '@material-ui/core/styles';
 
-export default withStyles(styles)(function CoinControl(props: IProps): JSX.Element {
+export default withStyles(styles)(function CoinControlComponent(props: IProps): JSX.Element {
   const { classes, coinsList, geckoCoinData } = props;
   return (
     <FormControl className={classes.formControl}>

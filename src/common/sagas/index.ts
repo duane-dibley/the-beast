@@ -1,16 +1,17 @@
 import { all } from 'redux-saga/effects';
 import { appointments, profile, search } from './companySagas';
-import { geckoCoinData, geckoCoinsInit } from './geckoSagas';
+import { coinDataSaga, coinInitSaga, coinOrderBookSaga } from './coinSagas';
 
 export default function* rootSaga(): Generator {
   yield all([
+    // coin
+    coinDataSaga(),
+    coinInitSaga(),
+    coinOrderBookSaga(),
     // company
     appointments(),
     profile(),
     search(),
-    // gecko
-    geckoCoinData(),
-    geckoCoinsInit(),
   ]);
 }
 

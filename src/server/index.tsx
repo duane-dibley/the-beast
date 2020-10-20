@@ -79,7 +79,7 @@ function htmlTemplate(el: string, theme: string /* initState: IStore, css: Set<s
 // default route
 app.get('/', (req: Request, res: Response) => {
   // TODO - introduce login/auth/smal logic
-  res.redirect('/gecko');
+  res.redirect('/coin');
 });
 
 // editor application route
@@ -95,7 +95,7 @@ app.get('/company', (req: Request, res: Response) => {
   );
 });
 
-app.get('/gecko', (req: Request, res: Response) => {
+app.get('/coin', (req: Request, res: Response) => {
   const { url } = req;
   res.end(
     htmlTemplate(

@@ -8,7 +8,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import MenuIcon from '@material-ui/icons/Menu';
 import CompanyRoute from './CompanyRoute';
-import GeckoRoute from './GeckoRoute';
+import CoinRoute from './CoinRoute';
 import LoginRoute from './LoginRoute';
 
 const useStyles = makeStyles((theme) => ({
@@ -33,11 +33,11 @@ export default function routes(): JSX.Element {
             <MenuIcon />
           </IconButton>
           <Typography className={classes.title} variant="h6">
+            <Button color="inherit" component={Link} to="/coin">
+              Coin
+            </Button>
             <Button color="inherit" component={Link} to="/company">
               Company
-            </Button>
-            <Button color="inherit" component={Link} to="/gecko">
-              Gecko
             </Button>
           </Typography>
           <Button color="inherit" component={Link} to="/login">
@@ -47,14 +47,14 @@ export default function routes(): JSX.Element {
       </AppBar>
 
       <Switch>
-        <Route exact path="/company">
-          <CompanyRoute />
+        <Route exact path="/coin">
+          <CoinRoute />
         </Route>
       </Switch>
 
       <Switch>
-        <Route exact path="/gecko">
-          <GeckoRoute />
+        <Route exact path="/company">
+          <CompanyRoute />
         </Route>
       </Switch>
 
@@ -67,4 +67,4 @@ export default function routes(): JSX.Element {
   );
 }
 
-export { CompanyRoute, GeckoRoute, LoginRoute };
+export { CoinRoute, CompanyRoute, LoginRoute };

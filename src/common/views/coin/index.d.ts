@@ -1,6 +1,6 @@
-interface IGeckoState {
+interface ICoinState {
   coinData: any;
-  coinsList: {
+  coinList: {
     id: string;
     name: string;
     symbol: string;

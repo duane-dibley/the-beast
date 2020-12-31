@@ -48,7 +48,9 @@ const client: Configuration = {
           {
             loader: 'postcss-loader',
             options: {
-              plugins: [autoprefixer()],
+              postcssOptions: {
+                plugins: [autoprefixer()],
+              },
             },
           },
           {
@@ -69,7 +71,9 @@ const client: Configuration = {
           {
             loader: 'postcss-loader',
             options: {
-              plugins: [autoprefixer()],
+              postcssOptions: {
+                plugins: [autoprefixer()],
+              },
             },
           },
           {
@@ -81,12 +85,17 @@ const client: Configuration = {
     ],
   },
   output: {
-    filename: '[name].min.js',
+    chunkFilename: '[id].chunk.min.js',
+    filename: '[name].bundle.min.js',
     path: path.resolve(__dirname, 'dist/public'),
+    sourceMapFilename: '[name].map.min.js',
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: '[name].min.css',
+      // Options similar to the same options in webpackOptions.output
+      // both options are optional
+      chunkFilename: '[id].min.css',
+      filename: '[name].bundle.min.css',
     }),
   ],
 };
@@ -115,7 +124,9 @@ const server: Configuration = {
           {
             loader: 'postcss-loader',
             options: {
-              plugins: [autoprefixer()],
+              postcssOptions: {
+                plugins: [autoprefixer()],
+              },
             },
           },
           {
@@ -136,7 +147,9 @@ const server: Configuration = {
           {
             loader: 'postcss-loader',
             options: {
-              plugins: [autoprefixer()],
+              postcssOptions: {
+                plugins: [autoprefixer()],
+              },
             },
           },
           {
@@ -152,8 +165,10 @@ const server: Configuration = {
     __filename: false,
   },
   output: {
-    filename: '[name].min.js',
+    chunkFilename: '[id].chunk.min.js',
+    filename: '[name].bundle..min.js',
     path: path.resolve(__dirname, 'dist'),
+    sourceMapFilename: '[name].map.min.js',
   },
   target: 'node',
 };
@@ -162,3 +177,168 @@ export default [
   { ...config, ...server },
   { ...config, ...client },
 ];
+//
+// import autoprefixer from 'autoprefixer';
+// import path from 'path';
+// import { Configuration } from 'webpack';
+// import webpackNodeExternals from 'webpack-node-externals';
+// import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+
+// const config: Configuration = {
+//   resolve: {
+//     alias: {
+//       '@common': path.resolve(__dirname, 'src/common/'),
+//     },
+//     extensions: ['.css', '.js', '.scss', '.styl', '.ts', '.tsx'],
+//   },
+// };
+
+// const client: Configuration = {
+//   devtool: 'inline-source-map',
+//   entry: {
+//     client: [
+//       path.resolve(__dirname, 'src/client/index.tsx'),
+//       path.resolve(__dirname, 'node_modules/react-grid-layout/css/styles.css'),
+//       path.resolve(__dirname, 'node_modules/react-resizable/css/styles.css'),
+//     ],
+//   },
+//   module: {
+//     rules: [
+//       {
+//         loader: [
+//           MiniCssExtractPlugin.loader, // instead of style-loader
+//           'css-loader',
+//         ],
+//         test: /\.css$/,
+//       },
+//       {
+//         exclude: /node_modules/,
+//         loader: 'ts-loader',
+//         test: /\.tsx?$/,
+//       },
+//       {
+//         test: /\.scss$/,
+//         use: [
+//           'isomorphic-style-loader',
+//           '@teamsupercell/typings-for-css-modules-loader',
+//           {
+//             loader: 'css-loader',
+//             options: { modules: true, sourceMap: true },
+//           },
+//           {
+//             loader: 'postcss-loader',
+//             options: {
+//               plugins: [autoprefixer()],
+//             },
+//           },
+//           {
+//             loader: 'sass-loader',
+//             options: { sourceMap: true },
+//           },
+//         ],
+//       },
+//       {
+//         test: /\.styl$/,
+//         use: [
+//           'isomorphic-style-loader',
+//           '@teamsupercell/typings-for-css-modules-loader',
+//           {
+//             loader: 'css-loader',
+//             options: { modules: true, sourceMap: true },
+//           },
+//           {
+//             loader: 'postcss-loader',
+//             options: {
+//               plugins: [autoprefixer()],
+//             },
+//           },
+//           {
+//             loader: 'stylus-loader',
+//             options: { sourceMap: true },
+//           },
+//         ],
+//       },
+//     ],
+//   },
+//   output: {
+//     filename: '[name].min.js',
+//     path: path.resolve(__dirname, 'dist/public'),
+//   },
+//   plugins: [
+//     new MiniCssExtractPlugin({
+//       filename: '[name].min.css',
+//     }),
+//   ],
+// };
+
+// const server: Configuration = {
+//   entry: {
+//     server: [path.resolve(__dirname, 'src/server/index.tsx')],
+//   },
+//   externals: [webpackNodeExternals()],
+//   module: {
+//     rules: [
+//       {
+//         exclude: /node_modules/,
+//         loader: 'ts-loader',
+//         test: /\.tsx?$/,
+//       },
+//       {
+//         test: /\.scss$/,
+//         use: [
+//           'isomorphic-style-loader',
+//           '@teamsupercell/typings-for-css-modules-loader',
+//           {
+//             loader: 'css-loader',
+//             options: { modules: true, sourceMap: true },
+//           },
+//           {
+//             loader: 'postcss-loader',
+//             options: {
+//               plugins: [autoprefixer()],
+//             },
+//           },
+//           {
+//             loader: 'sass-loader',
+//             options: { sourceMap: true },
+//           },
+//         ],
+//       },
+//       {
+//         test: /\.styl$/,
+//         use: [
+//           'isomorphic-style-loader',
+//           '@teamsupercell/typings-for-css-modules-loader',
+//           {
+//             loader: 'css-loader',
+//             options: { modules: true, sourceMap: true },
+//           },
+//           {
+//             loader: 'postcss-loader',
+//             options: {
+//               plugins: [autoprefixer()],
+//             },
+//           },
+//           {
+//             loader: 'stylus-loader',
+//             options: { sourceMap: true },
+//           },
+//         ],
+//       },
+//     ],
+//   },
+//   node: {
+//     __dirname: false,
+//     __filename: false,
+//   },
+//   output: {
+//     filename: '[name].min.js',
+//     path: path.resolve(__dirname, 'dist'),
+//   },
+//   target: 'node',
+// };
+
+// export default [
+//   { ...config, ...server },
+//   { ...config, ...client },
+// ];

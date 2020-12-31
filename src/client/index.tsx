@@ -1,6 +1,6 @@
 /* eslint-env browser */
 import React, { useEffect } from 'react';
-import { hydrate } from 'react-dom';
+import { hydrate, render } from 'react-dom';
 
 // TODO - tidy with paths
 import App from '../common/app';
@@ -26,4 +26,5 @@ function Main(): JSX.Element {
   return <App context={context} />;
 }
 
-hydrate(<Main />, document.getElementById('appdiv'));
+// hydrate(<Main />, document.getElementById('appdiv'));
+render(<Main />, document.getElementById('appdiv'));
